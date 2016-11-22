@@ -222,11 +222,18 @@
     <Compile Include="Migrations\201611211150488_bla.Designer.cs">
       <DependentUpon>201611211150488_bla.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611221437356_AddedTheForumClasses.cs" />
+    <Compile Include="Migrations\201611221437356_AddedTheForumClasses.Designer.cs">
+      <DependentUpon>201611221437356_AddedTheForumClasses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Thread.cs" />
+    <Compile Include="Models\ThreadPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1106,6 +1113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611211150488_bla.resx">
       <DependentUpon>201611211150488_bla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611221437356_AddedTheForumClasses.resx">
+      <DependentUpon>201611221437356_AddedTheForumClasses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
