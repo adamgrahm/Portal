@@ -16,6 +16,19 @@
     }
     
     <br />
+
+
+    <div class="col-md-3 col-md-offset-1 hidden-xs hidden-sm"  style="float:right;" id="BlogsAside">
+        <ul class="nav nav-pills nav-stacked sideList">
+            <li><h3>Latest blogposts</h3></li>
+            @foreach (var item in Model.Reverse().Take(5))
+            {
+                <li><a href="#">@item.Headline</a></li>
+            }
+
+        </ul>
+    </div>
+
     <div class="col-md-8">
         @foreach (var item in Model.Reverse())
         {
@@ -29,16 +42,6 @@
     <br>
 
 
-    <div class="col-md-3 col-md-offset-1" style="float:right;" id="BlogsAside">
-        <ul class="nav nav-pills nav-stacked sideList">
-            <li><h3>Blog Posts</h3></li>
-            @foreach (var item in Model)
-            {
-                <li><a href="#">@item.Headline</a></li>
-            }
-
-        </ul>
-    </div>
 
 
 
