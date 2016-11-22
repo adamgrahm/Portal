@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201611221437356_AddedTheForumClasses.Designer.cs">
       <DependentUpon>201611221437356_AddedTheForumClasses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611221444547_DbSetNewModels.cs" />
+    <Compile Include="Migrations\201611221444547_DbSetNewModels.Designer.cs">
+      <DependentUpon>201611221444547_DbSetNewModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -1116,6 +1120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611221437356_AddedTheForumClasses.resx">
       <DependentUpon>201611221437356_AddedTheForumClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611221444547_DbSetNewModels.resx">
+      <DependentUpon>201611221444547_DbSetNewModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

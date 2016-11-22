@@ -26,7 +26,11 @@ namespace Project.Models
         }
 
         public DbSet<Blog> Blogposts { get; set; }
-        
+        public DbSet<Thread> Thread { get; set; }
+        public DbSet<ThreadPost> ThreadPost { get; set; }
+        public DbSet<Message> Message { get; set; }
+
+
 
         public static ApplicationDbContext Create()
         {
