@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Project.Models.Blog>
+
+@{
+    
+    ViewBag.Title = "Index";
+}
+<div style="padding-top:60px;">
+
+    <h1>The Blog</h1>
+    <hr style="background-color:black; border-color:black; color:black;" />
+    <!--ONLY ADMINS-->
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create a new blogpost", "NewBlogPost", null, new { @class = "btn btn-info btn-lg" })
+        <hr style="background-color:black; border-color:black; color:black;" />
+    }
+    
+    <br />
+    <div class="col-md-8">
+        @foreach (var item in Model.Reverse())
+        {
+            <h2 class="text-center">@item.Headline</h2>
+            <p>@item.Post</p>
+            <br />
+            <hr style="background-color:black; border-color:black; color:black;" />
+            <br />
+        }
+    </div>
+    <br>
+
+
+    <div class="col-md-3 col-md-offset-1" style="float:right;" id="BlogsAside">
+        <ul class="nav nav-pills nav-stacked sideList">
+            <li><h3>Blog Posts</h3></li>
+            @foreach (var item in Model)
+            {
+                <li><a href="#">@item.Headline</a></li>
+            }
+
+        </ul>
+    </div>
+
+
+
+ 
+</div>

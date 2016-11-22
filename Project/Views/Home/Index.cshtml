@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Project.Models.Blog>
+
+<div class="col-md-8 col-md-offset-2">
+    <h1>Latest blogpost</h1>
+    <hr style="background-color:black; border-color:black; color:black;" />
+    <br />
+    @foreach (var item in Model)
+    {
+        <h3 class="text-center">@item.Headline</h3>
+        <br />
+        <p>@item.Post</p>
+    }
+</div>
