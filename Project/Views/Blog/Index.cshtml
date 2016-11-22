@@ -17,11 +17,11 @@
     <br />
 
     <div class="col-md-3 col-md-offset-1 hidden-xs hidden-sm"  style="float:right;" id="BlogsAside">
-        <ul class="nav nav-pills nav-stacked sideList">
+        <ul class="nav nav-pills nav-stacked sideList" data-spy="affix">
             <li><h3>Blogposts</h3></li>
-            @foreach (var item in Model.Reverse())
+            @foreach (var item in Model.Reverse().Take(5))
             {
-                <li><a href="#http://localhost:53519/Blog/@item.Id">#@item.Id - @item.Headline</a></li>
+                <li><a href="#@item.Id">#@item.Id - @item.Headline</a></li>
             }
 
         </ul>
@@ -30,7 +30,7 @@
     <div class="col-md-8">
         @foreach (var item in Model.Reverse())
         {
-            <h2 class="text-center" name="@item.Id">@item.Headline</h2>
+            <h2 class="text-center" id="@item.Id">@item.Headline</h2>
             <p>@item.Post</p>
             <br />
             <hr style="background-color:black; border-color:black; color:black;" />
