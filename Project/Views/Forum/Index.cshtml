@@ -1,0 +1,45 @@
+﻿@using Project.Models
+@model IEnumerable<Project.Models.Thread>
+
+@{
+    ViewBag.Title = "Index";
+    var posts = new ThreadPost();
+    var thread = new Thread();
+}
+
+
+    <hr style="border-color:black; background-color:black; color:black;" />
+    <!--Showing all the threads-->
+    <!--Should open partials of the thread choosen by the user-->
+<div id="ForumSite">
+    <table class="table-bordered table-responsive table-striped col-md-12" style="font-size:19px;">
+        <tr>
+            <th class="col-md-3 col-md-offset-1">Thread</th>
+            <th class="col-md-3 col-md-offset-1">Posted by</th>
+            <th class="col-md-3 col-md-offset-1">Date</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="col-md-3 col-md-offset-1">@Html.ActionLink(@item.Headline, "RedirectToThread", new { id = item.Id })</td>
+                <td class="col-md-3 col-md-offset-1">@item.OriginalPoster</td>
+                <td class="col-md-3 col-md-offset-1">@item.DatePosted</td>
+            </tr>
+        }
+    </table>
+
+
+
+    <!--Posting to the forum-->
+
+
+    <form method="post" action="@Url.Action("Index", "Forum")" style="padding-top:50px;" class="form-group form-horizontal col-md-8">
+        <h3>Create a new thread!</h3>
+        <div class="form-group" style="margin-bottom:50px;">
+            <input type="text" class="form-control col-md-8" name="headline" placeholder="Enter a headline...." required />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-info" value="Create thread" />
+        </div>
+    </form>
+</div>

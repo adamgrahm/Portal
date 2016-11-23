@@ -1,0 +1,16 @@
+﻿
+<table class="table-bordered table-hover table-responsive table-striped col-md-12" style="font-size:17px;">
+    <tr>
+        <th class="col-md-8">Forum posts</th>
+        <th class="col-md-2">Posted by</th>
+        <th class="col-md-2">Date</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ForumPost</td>
+            <td>@item.OriginalPoster</td>
+            <td>@item.DatePosted</td>
+        </tr>
+    }
+</table>

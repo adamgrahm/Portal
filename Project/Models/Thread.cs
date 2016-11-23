@@ -17,4 +17,12 @@ namespace Project.Models
 
         public DateTime DatePosted { get; set; }
     }
+
+    public class ThreadViewModel
+    {
+        public Thread Thread { get; set; }
+
+        public List<ThreadPost> ListOfPosts { get; set; }
+
+    }
 }

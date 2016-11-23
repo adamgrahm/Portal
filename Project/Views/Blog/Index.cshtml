@@ -1,9 +1,6 @@
 ﻿@model IEnumerable<Project.Models.Blog>
 
-@{
-    ViewBag.Title = "Index";
-}
-<div style="padding-top:20px;">
+<div style="padding-top:20px;"  id="Top">
 
     <h1>The Blog</h1>
     <hr style="background-color:black; border-color:black; color:black;" />
@@ -17,9 +14,9 @@
     <br />
 
     <div class="col-md-3 col-md-offset-1 hidden-xs hidden-sm"  style="float:right;" id="BlogsAside">
-        <ul class="nav nav-pills nav-stacked sideList" data-spy="affix">
+        <ul class="nav nav-pills nav-stacked sideList">
             <li><h3>Blogposts</h3></li>
-            @foreach (var item in Model.Reverse().Take(5))
+            @foreach (var item in Model.Reverse())
             {
                 <li><a href="#@item.Id">#@item.Id - @item.Headline</a></li>
             }
@@ -33,6 +30,8 @@
             <h2 class="text-center" id="@item.Id">@item.Headline</h2>
             <p>@item.Post</p>
             <br />
+            <a href="#Top" class="btn btn-sm btn-info">Go to the top!</a>
+            @*@Html.ActionLink("Go to top!", "Index", "Blog", new { @class = "btn btn-info btn-sm"})*@
             <hr style="background-color:black; border-color:black; color:black;" />
             <br />
         }
