@@ -16,6 +16,9 @@ namespace Project.Models
         public ApplicationUser OriginalPoster { get; set; }
 
         public DateTime DatePosted { get; set; }
+
+        public string PostedBy { get; set; }
+
     }
 
     public class ThreadViewModel

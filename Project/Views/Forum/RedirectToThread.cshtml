@@ -4,12 +4,13 @@
     var context = new ApplicationDbContext();
     var i = context.ThreadPost.Where(u => u.Thread.Id == Model.Id);
 }
+<br />
+<h2>@Model.Headline</h2>
+
 <hr style="border-color:black; background-color:black; color:black;" />
 @Html.Partial("_ChoosenThread", i)
 <div class="col-md-9 col-md-offset-1">
 
-
-<hr style="border-color:black; background-color:black; color:black;" />
 <br />
 <h4>Create a new post in @Model.Headline</h4>
 

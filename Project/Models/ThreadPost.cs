@@ -19,5 +19,8 @@ namespace Project.Models
 
         public DateTime DatePosted { get; set; }
 
+        public string PostedBy { get; set; }
+
+
     }
 }

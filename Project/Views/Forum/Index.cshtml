@@ -22,7 +22,7 @@
         {
             <tr>
                 <td class="col-md-3 col-md-offset-1">@Html.ActionLink(@item.Headline, "RedirectToThread", new { id = item.Id })</td>
-                <td class="col-md-3 col-md-offset-1">@item.OriginalPoster</td>
+                <td class="col-md-3 col-md-offset-1">@item.PostedBy</td>
                 <td class="col-md-3 col-md-offset-1">@item.DatePosted</td>
             </tr>
         }
