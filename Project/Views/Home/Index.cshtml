@@ -1,15 +1,28 @@
 ﻿@model IEnumerable<Project.Models.Blog>
 
 <div class="col-md-8 col-md-offset-2">
-    <h1>Latest blogpost</h1>
+    <h1>Latest blogposts</h1>
     <hr style="background-color:black; border-color:black; color:black;" />
     <br />
     @foreach (var item in Model)
     {
-        <h3 class="text-center">@item.Headline</h3>
-        <br />
-        <p>@item.Post</p>
-        <hr style="background-color:black; border-color:black; color:black;" />
+        <img src="@item.ImageURL" style="max-height:200px; margin-bottom:20px;" class="col-md-3" />
+            <h2 id="@item.Id" class="col-md-9">@item.Headline</h2>
+
+            <p>@item.Post</p>
+        <hr style="background-color:black; border-color:black; color:black;" class="col-md-12" />
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+
+    }
+    else
+    {
+        <ul class="col-md-8 col-md-offset-2" style="border:ridge; list-style:none;">
+            <li><h3 class="text-center">Want to see more? Register today!</h3></li>
+            <li class="col-md-4 col-md-offset-4">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info" })</li>
+            <li><p></p></li>
+        </ul>
     }
 
 </div>

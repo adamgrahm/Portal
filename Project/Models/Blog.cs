@@ -15,6 +15,10 @@ namespace Project.Models
 
         public string Post { get; set;}
 
+        public string ImageURL { get; set; }
+
+        public string PostedBy { get; set; }
+
         public ApplicationUser WhoPosted { get; set; }
 
         public List<Blog> ListOfBlog { get; set; }

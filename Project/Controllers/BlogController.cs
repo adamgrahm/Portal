@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Microsoft.AspNet.Identity;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,14 @@ namespace Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult BlogPosted(string post, string headline)
+        public ActionResult BlogPosted(string post, string headline, string pic)
         {
             var blogpost = new Blog();
             blogpost.Post = post;
             blogpost.Headline = headline;
+            var Op = User.Identity.GetUserName().ToString();
+            blogpost.PostedBy = Op;
+            blogpost.ImageURL = pic;
             context.Blogposts.Add(blogpost);
             context.SaveChanges();
             return RedirectToAction("Index", context.Blogposts.ToList());

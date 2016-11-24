@@ -235,6 +235,14 @@
     <Compile Include="Migrations\201611240943017_ChangedOpToString.Designer.cs">
       <DependentUpon>201611240943017_ChangedOpToString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611241044491_AddedImageAndPostedbyToTheBlog.cs" />
+    <Compile Include="Migrations\201611241044491_AddedImageAndPostedbyToTheBlog.Designer.cs">
+      <DependentUpon>201611241044491_AddedImageAndPostedbyToTheBlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241300046_AddedPropsForRegisterModel.cs" />
+    <Compile Include="Migrations\201611241300046_AddedPropsForRegisterModel.Designer.cs">
+      <DependentUpon>201611241300046_AddedPropsForRegisterModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -1097,7 +1105,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Shared\_ChoosenThread.cshtml" />
-    <Content Include="Views\Forum\RedirectToThread.cshtml" />
+    <Content Include="Views\Forum\SelectedPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1134,6 +1142,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611240943017_ChangedOpToString.resx">
       <DependentUpon>201611240943017_ChangedOpToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241044491_AddedImageAndPostedbyToTheBlog.resx">
+      <DependentUpon>201611241044491_AddedImageAndPostedbyToTheBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241300046_AddedPropsForRegisterModel.resx">
+      <DependentUpon>201611241300046_AddedPropsForRegisterModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

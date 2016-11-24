@@ -24,16 +24,15 @@ namespace Project.Controllers
             var newThread = new Thread();
             newThread.DatePosted = DateTime.Now;
             newThread.Headline = headline;
-            var currentUser = User.Identity.GetUserName().ToString();
-            newThread.PostedBy = currentUser;
-            //var user = context.Users.FirstOrDefault(r => r.UserName == currentUser);
-            //newThread.OriginalPoster = user;
+            var currentUser = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(r => r.Id == currentUser);
+            newThread.PostedBy = user.NickName;
             context.Thread.Add(newThread);
             context.SaveChanges();
             return View(context.Thread.ToList());
         }
 
-        public ActionResult RedirectToThread(int id)
+        public ActionResult SelectedPost(int id)
         {
             var whichThread = context.Thread.Single(u => u.Id == id);
             if (whichThread.Id == id)
@@ -51,9 +50,10 @@ namespace Project.Controllers
             newPost.ForumPost = forumpost;
             var findThread = context.Thread.FirstOrDefault(u => u.Id == id);
             newPost.Thread = findThread;
-            var user = User.Identity.GetUserName().ToString();
-            newPost.PostedBy = user;
-            //newPost.OriginalPoster = context.Users.FirstOrDefault(u => u.UserName == user);
+            var currentUser = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
+            newPost.PostedBy = user.NickName;
+            
             context.ThreadPost.Add(newPost);
             context.SaveChanges();
             return RedirectToAction("Index",context.ThreadPost.ToList());
