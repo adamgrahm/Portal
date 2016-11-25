@@ -1,4 +1,6 @@
-﻿
+﻿@{ 
+    int offset = 0;
+}
 
     @foreach (var item in Model)
     {
@@ -6,5 +8,12 @@
             <li style="margin-bottom:3px; margin-top:3px;">Posted by: @item.PostedBy</li>
             <li style="margin-bottom:3px;">Date: @item.DatePosted</li>
             <li style="margin-bottom:3px;">@item.ForumPost</li>
-        </ul>
+            @*@if (item.Replies.Reply != null)
+            {
+                <li style="margin-bottom:3px;">@item.Replies.Reply</li>
+            }*@
+            <li style="margin-bottom:3px;"><textarea type="text" class="form-control" placeholder="Write a reply..." name="reply"></textarea></li>
+            <li style="margin-bottom:3px;">@Html.ActionLink("Reply", "ReplyToPost", "Forum", new { id = item.Id }, new { @class = "btn btn-info" })</li>
+            </ul>
+           
     }

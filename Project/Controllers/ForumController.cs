@@ -58,5 +58,16 @@ namespace Project.Controllers
             context.SaveChanges();
             return RedirectToAction("Index",context.ThreadPost.ToList());
         }
+
+        public ActionResult ReplyToPost(int id, string reply)
+        {
+            ForumReplies replies = new ForumReplies();
+            var i = context.Thread.FirstOrDefault(u => u.Id == id);
+            //replies.Thread.Id = i.Id;
+            replies.Reply = reply;
+            context.Replies.Add(replies);
+            context.SaveChanges();
+            return RedirectToAction("Index",context.Replies.ToList());
+        }
     }
 }

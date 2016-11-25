@@ -243,9 +243,22 @@
     <Compile Include="Migrations\201611241300046_AddedPropsForRegisterModel.Designer.cs">
       <DependentUpon>201611241300046_AddedPropsForRegisterModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611250828486_AddedDataAnnotationsAndANewClassForReplies.cs" />
+    <Compile Include="Migrations\201611250828486_AddedDataAnnotationsAndANewClassForReplies.Designer.cs">
+      <DependentUpon>201611250828486_AddedDataAnnotationsAndANewClassForReplies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611250830058_AddedPropForFourmReplies.cs" />
+    <Compile Include="Migrations\201611250830058_AddedPropForFourmReplies.Designer.cs">
+      <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.cs" />
+    <Compile Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.Designer.cs">
+      <DependentUpon>201611250956055_AddedRelationBeetweenRepliesAndPost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\ForumReplies.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -1148,6 +1161,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611241300046_AddedPropsForRegisterModel.resx">
       <DependentUpon>201611241300046_AddedPropsForRegisterModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250828486_AddedDataAnnotationsAndANewClassForReplies.resx">
+      <DependentUpon>201611250828486_AddedDataAnnotationsAndANewClassForReplies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250830058_AddedPropForFourmReplies.resx">
+      <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.resx">
+      <DependentUpon>201611250956055_AddedRelationBeetweenRepliesAndPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

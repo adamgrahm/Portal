@@ -34,6 +34,8 @@ namespace Project.Models
         public DbSet<Thread> Thread { get; set; }
         public DbSet<ThreadPost> ThreadPost { get; set; }
         public DbSet<Message> Message { get; set; }
+        public DbSet<ForumReplies> Replies { get; set; }
+
 
 
 

@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
-    [Authorize]
     public class BlogController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();

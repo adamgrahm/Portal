@@ -11,21 +11,18 @@ namespace Project.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        [Display(Name = "Headline")]
+        [StringLength(100, ErrorMessage = "Headline can not be more than 100 letters", MinimumLength = 5)]
         public string Headline { get; set; }
 
         public ApplicationUser OriginalPoster { get; set; }
 
+        [Required]
         public DateTime DatePosted { get; set; }
 
+        [Required]
         public string PostedBy { get; set; }
 
     }
-
-    public class ThreadViewModel
-    {
-        public Thread Thread { get; set; }
-
-        public List<ThreadPost> ListOfPosts { get; set; }
-
     }
-}
