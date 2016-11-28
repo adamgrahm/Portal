@@ -1116,6 +1116,7 @@
     <Content Include="Views\Shared\_ChoosenThread.cshtml" />
     <Content Include="Views\Forum\SelectedPost.cshtml" />
     <Content Include="Views\Shared\_ShowReplies.cshtml" />
+    <Content Include="Views\TIDSPLAN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
