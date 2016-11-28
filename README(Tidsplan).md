@@ -1,0 +1,20 @@
+# Portal
+A community portal
+
+
+Vecka 1
+Mån-Tis Blogg (Hela)
+Ons-Fre Forum (Tråd och posts)
+
+Vecka 2
+Mån-Ons Forum (Svar och Citera)
+Tors-Fre User management (Skapa layouten och vissa funktioner, till exemple "Delete")
+
+Vecka 3
+Mån-Ons User Management (Forsätter med funktionalitet så som att redigera användare osv)
+Tors-Fre Förbättringar (Kommer göra en del "enkla lösningar", planerar att fixa till dom här och dessutom köra lite tests och fixa eventuella buggar
+
+Vecka 4
+Buggfix, Förbättringar (Fortsättning från förra veckan)
+Style (Kommer nog lägga åtminstone 2-3 dagar på detta)
+Testa så att allt fungerar!
