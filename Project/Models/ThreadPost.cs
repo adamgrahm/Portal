@@ -27,7 +27,7 @@ namespace Project.Models
         [Required]
         public string PostedBy { get; set; }
 
-        public ForumReplies Replies { get; set; }
+       // public ForumReplies Replies { get; set; }
 
 
 

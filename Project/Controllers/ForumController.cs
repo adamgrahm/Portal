@@ -2,6 +2,8 @@
 using Project.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -56,18 +58,46 @@ namespace Project.Controllers
             
             context.ThreadPost.Add(newPost);
             context.SaveChanges();
-            return RedirectToAction("Index",context.ThreadPost.ToList());
+            return RedirectToRoute("Test", new { Id = id });
         }
 
-        public ActionResult ReplyToPost(int id, string reply)
+        [HttpPost]
+        public ActionResult ReplyToPost(string reply, int id)//<---ThreadpostId
         {
             ForumReplies replies = new ForumReplies();
-            var i = context.Thread.FirstOrDefault(u => u.Id == id);
-            //replies.Thread.Id = i.Id;
+            var test = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
+            var i = context.ThreadPost.FirstOrDefault(u => u.Id == id);
+            replies.Threadpost = i;
             replies.Reply = reply;
+            replies.PostedDate = DateTime.Now;
+            var currentUser = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
+            replies.PostedBy = user.NickName;
             context.Replies.Add(replies);
+            try { 
             context.SaveChanges();
-            return RedirectToAction("Index",context.Replies.ToList());
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation(
+                              "Class: {0}, Property: {1}, Error: {2}",
+                              validationErrors.Entry.Entity.GetType().FullName,
+                              validationError.PropertyName,
+                              validationError.ErrorMessage);
+                    }
+                }
+            }
+            return RedirectToRoute("Test", new { Id = test });
+        }
+
+        public ActionResult ShowReplies(int id)
+        {
+            var test = context.Replies.Where(u => u.Threadpost.Id == id);
+            return PartialView("_ShowReplies", test);
         }
     }
 }

@@ -1,19 +1,30 @@
-﻿@{ 
-    int offset = 0;
+﻿@using Project.Models
+@{ 
+    ApplicationDbContext context = new ApplicationDbContext();
+    var test = context.ThreadPost.ToList();
 }
 
     @foreach (var item in Model)
     {
         <ul class="col-md-10 col-md-offset-1" style="border:ridge; list-style:none;">
-            <li style="margin-bottom:3px; margin-top:3px;">Posted by: @item.PostedBy</li>
-            <li style="margin-bottom:3px;">Date: @item.DatePosted</li>
-            <li style="margin-bottom:3px;">@item.ForumPost</li>
-            @*@if (item.Replies.Reply != null)
+            <li style="margin-bottom:10px; margin-top:10px; border-style:ridge;"><span style="margin-left:5px; margin-top:10px;"> Posted by: @item.PostedBy || @item.DatePosted</span>
+            <p style="margin-left:5px;">@item.ForumPost</p></li>
+            <li style="margin-bottom:10px;" class="col-md-offset-1">
+                @Html.Action("ShowReplies", new { id = item.Id})
+            </li>
+            @if (User.Identity.IsAuthenticated)
             {
-                <li style="margin-bottom:3px;">@item.Replies.Reply</li>
-            }*@
-            <li style="margin-bottom:3px;"><textarea type="text" class="form-control" placeholder="Write a reply..." name="reply"></textarea></li>
-            <li style="margin-bottom:3px;">@Html.ActionLink("Reply", "ReplyToPost", "Forum", new { id = item.Id }, new { @class = "btn btn-info" })</li>
-            </ul>
+                <li>
+                    @using (Html.BeginForm("ReplyToPost", "Forum", new { id = item.Id }, FormMethod.Post))
+                {
+                    <textarea class="form-control" placeholder="Write a reply..." name="reply" style="margin-bottom:5px;"></textarea>
+                    <input type="submit" class="btn btn-info btn-sm" value="Submit" style="margin-bottom:5px;" />
+                }
+            </li>
+            }
+            
+        </ul>
            
     }
+
+

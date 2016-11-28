@@ -1,0 +1,11 @@
+﻿@using Project.Models
+<div style="border-style:ridge; margin-left:3px;">
+    <h4>Replies</h4>
+    @foreach (var thing in Model)
+    {
+        <span>Posted by: @thing.PostedBy || @thing.PostedDate</span>
+        <p>@thing.Reply</p>
+        <hr style="border-color:grey; color:grey; background-color:grey;" />
+    }
+
+</div>

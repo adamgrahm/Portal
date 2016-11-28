@@ -251,10 +251,6 @@
     <Compile Include="Migrations\201611250830058_AddedPropForFourmReplies.Designer.cs">
       <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.cs" />
-    <Compile Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.Designer.cs">
-      <DependentUpon>201611250956055_AddedRelationBeetweenRepliesAndPost.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -1119,6 +1115,7 @@
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Shared\_ChoosenThread.cshtml" />
     <Content Include="Views\Forum\SelectedPost.cshtml" />
+    <Content Include="Views\Shared\_ShowReplies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1167,9 +1164,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611250830058_AddedPropForFourmReplies.resx">
       <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611250956055_AddedRelationBeetweenRepliesAndPost.resx">
-      <DependentUpon>201611250956055_AddedRelationBeetweenRepliesAndPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

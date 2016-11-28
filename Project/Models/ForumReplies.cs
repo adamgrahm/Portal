@@ -20,5 +20,12 @@ namespace Project.Models
         public ThreadPost Threadpost { get; set; }
 
 
+        public DateTime PostedDate { get; set; }
+
+        public string PostedBy { get; set; }
+
+        //public Thread Thread { get; set; }
+
+
     }
 }
