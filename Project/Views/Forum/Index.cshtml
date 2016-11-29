@@ -6,6 +6,9 @@
     var posts = new ThreadPost();
     var thread = new Thread();
 }
+@if (User.Identity.IsAuthenticated)
+{
+
 
 
     <hr style="border-color:black; background-color:black; color:black;" />
@@ -42,3 +45,9 @@
         </div>
     </form>
 </div>
+}
+else
+{
+    <h2>You need to be logged in to acces the forum</h2>
+    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info" })
+}

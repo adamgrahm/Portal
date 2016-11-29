@@ -5,6 +5,10 @@
     var i = context.ThreadPost.Where(u => u.Thread.Id == Model.Id);
 
 }
+@if (User.Identity.IsAuthenticated)
+{
+
+
 <br />
 <h2>@Model.Headline</h2>
 
@@ -30,3 +34,9 @@
 @Html.ActionLink("Back to the forum", "Index", null, new { @class = "btn btn-info" })
 
 </div>
+}
+else
+{
+<h2>You need to be logged in to acces the forum</h2>
+@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info" })
+}

@@ -1,11 +1,23 @@
-﻿@using Project.Models
-<div style="border-style:ridge; margin-left:3px;">
-    <h4>Replies</h4>
+﻿@{ 
+    int i = 0;
+}
+
+
+
+
     @foreach (var thing in Model)
     {
-        <span>Posted by: @thing.PostedBy || @thing.PostedDate</span>
-        <p>@thing.Reply</p>
-        <hr style="border-color:grey; color:grey; background-color:grey;" />
+        i++;
+        <div class="col-md-12">
+            <span style="font-weight:bold; font-style:italic;">#@i by </span><span style="font-weight:bold; font-size:15px;"><a href="#">@thing.PostedBy</a></span>
+        </div>
+            <div class="col-md-12">
+                <span style="font-style:italic; margin-bottom:40px;"> @thing.PostedDate</span>
+            </div>
+            <div class="col-md-12">
+                <p style="white-space:pre-line;">@thing.Reply</p>
+                <hr style="border-color:grey; color:grey; background-color:grey;" />
+            </div>
+
     }
 
-</div>
