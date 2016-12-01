@@ -17,18 +17,6 @@ namespace Project.Migrations
 
         protected override void Seed(Project.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
             if (!context.Users.Any(u => u.UserName == "Admin@Admin.Admin"))
             {
                 var store = new UserStore<ApplicationUser>(context);
@@ -42,6 +30,21 @@ namespace Project.Migrations
                 ApplicationUser findUser = manager.FindById(user.Id);
                 manager.AddToRole(user.Id, "Admin");
             }
+
+                if (!context.Users.Any(u => u.UserName == "Mod@Mod.Mod"))
+                {
+                    var modstore = new UserStore<ApplicationUser>(context);
+                    var modmanager = new UserManager<ApplicationUser>(modstore);
+                    var mod = new ApplicationUser { UserName = "Mod@Mod.Mod", DateOfBirth = DateTime.Now };
+                    modmanager.Create(mod, "ModIsMod");
+
+                    var modrolestore = new RoleStore<IdentityRole>(context);
+                    var modRoleManager = new RoleManager<IdentityRole>(modrolestore);
+                    modRoleManager.Create(new IdentityRole { Name = "Moderator" });
+                    ApplicationUser findmod = modmanager.FindById(mod.Id);
+                    modmanager.AddToRole(mod.Id, "Moderator");
+                }
+            }
         }
     }
-}
+

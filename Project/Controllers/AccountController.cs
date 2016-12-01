@@ -15,12 +15,36 @@ namespace Project.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext context = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
         }
+
+        public ActionResult MakeMod(string username)
+        {
+            var i = context.Users.FirstOrDefault(u => u.UserName == username);
+            UserManager.AddToRole(i.Id, "Moderator");
+            context.SaveChanges();
+            return RedirectToAction("Index", "Users", context.Users.ToList());
+        }
+        //public async Task<ActionResult> SetUserToAdmin()
+        //{
+        //    if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+        //    {
+        //        // Set admin rights ans update security stamp
+        //        UserManager.AddToRole(User.Identity.GetUserId(), "Admin");
+        //        await UserManager.UpdateSecurityStampAsync(User.Identity.GetUserId());
+
+        //        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+        //        // log out user, then log user in again to make the changes up to date
+        //        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        //        await SignInManager.SignInAsync(user, true, false);
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+@if (User.IsInRole("Admin"))
+{
+
+<div id="AdminPage2">
+    <table class="table-bordered table-hover table-striped col-md-12">
+        <tr>
+            <th class="col-md-3">Nickname</th>
+            <th class="col-md-3">Email</th>
+            <th class="col-md-2">Date of birth</th>
+            <th class="col-md-2">Role</th>
+            <th class="col-md-2">Edit/Delete</th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td class="col-md-3"><a href="#">@item.NickName</a></td>
+                <td class="col-md-3">@item.Email</td>
+                <td class="col-md-2">@item.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                <td class="col-md-2">
+                    
+                    @*@if (item.Roles.FirstOrDefault(x => x.UserId == item.Id).ToString() != null)
+                    { }*@
+
+                        @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new
+                   { username = item.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-success" })
+                   
+                        
+                    
+                    
+                    
+                </td>
+                <td class="col-md-2">
+                    @Ajax.ActionLink("Edit", "EditUser", "Users", new { username = item.UserName }, new AjaxOptions
+               {
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "AdminPage",
+
+               }, new { @class = "btn btn-sm btn-info" })
+
+                    @Html.ActionLink("Delete", "DeleteUser", "Users", routeValues: new
+               { username = item.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+                    @*@Ajax.ActionLink("Delete", "DeleteUser", "Users", new { username = item.UserName }, new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "Adminpage"
+                        }, new { @class = "btn btn-sm btn-danger" })*@
+                </td>
+            </tr>
+        }
+    </table>
+    <div id="AdminPage">
+    </div>
+
+</div>
+}

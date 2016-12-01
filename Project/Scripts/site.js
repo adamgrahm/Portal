@@ -30,3 +30,28 @@
 
 }());
 
+
+//$('.AddUser').on('click', function () {
+//    $("#AddUserForm").dialog({
+//        autoOpen: true,
+//        position: { my: "center", at: "top+350", of: window },
+//        width: 1000,
+//        height: 500,
+//        resizable: false,
+//        modal: true,
+//        open: function () {
+//            $(this).load('/Users/AddUserPartialView');
+//        },
+//        buttons: {
+//            "Add User": function () {
+//                addUserInfo();
+//            },
+//            Cancel: function () {
+//                $(this).dialog("close");
+//                $(this).css("color","red")
+//            }
+            
+//        }
+//    });
+//    return false;
+//});

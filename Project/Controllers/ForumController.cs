@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
+    [Authorize]
     public class ForumController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
@@ -31,7 +32,7 @@ namespace Project.Controllers
             newThread.PostedBy = user.NickName;
             context.Thread.Add(newThread);
             context.SaveChanges();
-            return View(context.Thread.ToList());
+            return PartialView("_PartialForum",context.Thread.ToList());
         }
 
         public ActionResult SelectedPost(int id)
@@ -98,6 +99,13 @@ namespace Project.Controllers
         {
             var test = context.Replies.Where(u => u.Threadpost.Id == id);
             return PartialView("_ShowReplies", test);
+        }
+
+
+        public ActionResult SearchForum(string searchstring)
+        {
+            var i = context.Thread.Where(u => u.Headline.Contains(searchstring));
+            return PartialView("_PartialForum",i);
         }
     }
 }

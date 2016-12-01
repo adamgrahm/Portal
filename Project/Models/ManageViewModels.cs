@@ -5,6 +5,8 @@ using Microsoft.Owin.Security;
 
 namespace Project.Models
 {
+
+
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

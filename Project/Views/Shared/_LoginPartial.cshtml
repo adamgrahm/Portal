@@ -1,25 +1,50 @@
 ﻿@using Microsoft.AspNet.Identity
-    @if (Request.IsAuthenticated)
-    {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-        @Html.AntiForgeryToken()
+@using Project.Models
 
-        <ul class="nav navbar-nav navbar-right">
+@{
+    var i = new LoginViewModel();
+}
+@if (Request.IsAuthenticated)
+{
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>@User.Identity.GetUserName()</b> <span class="caret"></span></a>
+        <ul id="login-dp" class="dropdown-menu">
             <li>
-                <!--"Hello " + User.Identity.GetUserName() + "!"-->
-                @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
-        }
-    }
-    else
-    {
-        <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <div class="row">
+                    <div class="col-md-12">
 
-            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li class="col-xs-12">@Html.ActionLink("Admin Tools", "Index", "Users", routeValues: null, htmlAttributes: new { @style = "color:white;" })</li>
+                                    }
+
+
+                                    <li class="col-xs-12">
+                                        <!--"Hello " + User.Identity.GetUserName() + "!"-->
+                                        @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "color:white;" })
+                                    </li>
+                                    <li class="col-xs-12"><a style="color:white;" href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+                                </ul>
+
+                            }
+
+                        
+                    </div>
+                </div>
+            </li>
         </ul>
-    }
+</ul>
+}
+else
+{
+    @Html.Partial("_NotLoggedIn", i)
+
+}
 

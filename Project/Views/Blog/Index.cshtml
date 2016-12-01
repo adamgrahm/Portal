@@ -2,6 +2,9 @@
 @if (User.Identity.IsAuthenticated)
 {
 
+        int i = 0;
+    
+
 
 <div style="padding-top:20px;"  id="Top">
 
@@ -21,7 +24,8 @@
             <li><h3>Blogposts</h3></li>
             @foreach (var item in Model.Reverse())
             {
-                <li><a href="#@item.Id">#@item.Id - @item.Headline</a></li>
+                i++;
+                <li><a href="#@item.Id">#@i - @item.Headline</a></li>
             }
 
         </ul>
@@ -30,18 +34,21 @@
     <div class="col-md-8">
         @foreach (var item in Model.Reverse())
         {
-            <div id="@item.Id"></div>
+            <hr  id="@item.Id" style="background-color:black; border-color:black; color:black;" class="col-md-12" />
+            <br />
+            <br />
             <img src="@item.ImageURL" style="max-height:200px; margin-bottom:20px;" class="col-md-3" />
             <h2 class="col-md-9">@item.Headline</h2>
             
             <p>@item.Post</p>
             <br />
             <div class="col-md-12">
+            </div>
+                
                 <span style="font-weight:bold;">Posted by: </span>@item.PostedBy
                 <p></p>
-                <p><a href="#Top" class="btn btn-sm btn-info">Go to the top!</a></p>
-            </div>
-            <hr style="background-color:black; border-color:black; color:black;" class="col-md-12" />
+                <p><a href="#" class="btn btn-sm btn-info">Go to the top!</a></p>
+            
             <br />
         }
     </div>
