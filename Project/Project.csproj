@@ -316,6 +316,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\35435390-faded-off-white-background-texture-old-white-dirty-paper-light-beige-background-Stock-Photo.jpg" />
+    <Content Include="Images\arrow-down-icon-png-4.png" />
     <Content Include="Images\beige-full-hd-background_1_1920x1200.jpg" />
     <Content Include="Images\freebg1.jpg" />
     <Content Include="Images\Namnlös.png" />
@@ -352,9 +353,6 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1180,6 +1178,7 @@
     <Content Include="Views\Shared\_PartialUsers.cshtml" />
     <Content Include="Views\Shared\_NotLoggedIn.cshtml" />
     <Content Include="Views\Shared\_PartialForum.cshtml" />
+    <Content Include="Views\Shared\_DetailedUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

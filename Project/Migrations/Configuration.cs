@@ -21,7 +21,7 @@ namespace Project.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "Admin@Admin.Admin" };
+                var user = new ApplicationUser { UserName = "Admin@Admin.Admin", DateOfBirth = DateTime.Now, Email = "Admin@Admin.Admin", NickName = "Admin" };
                 manager.Create(user, "AdminIsAdmin");
 
                 var rolestore = new RoleStore<IdentityRole>(context);
@@ -35,7 +35,7 @@ namespace Project.Migrations
                 {
                     var modstore = new UserStore<ApplicationUser>(context);
                     var modmanager = new UserManager<ApplicationUser>(modstore);
-                    var mod = new ApplicationUser { UserName = "Mod@Mod.Mod", DateOfBirth = DateTime.Now };
+                    var mod = new ApplicationUser { UserName = "Mod@Mod.Mod", DateOfBirth = DateTime.Now, Email = "Mod@Mod.Mod", NickName = "Moderator" };
                     modmanager.Create(mod, "ModIsMod");
 
                     var modrolestore = new RoleStore<IdentityRole>(context);

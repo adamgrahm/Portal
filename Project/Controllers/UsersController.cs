@@ -55,5 +55,11 @@ namespace Project.Controllers
             var i = context.Users.Where(u => u.NickName.Contains(searchstring));
             return PartialView("_PartialUsers", i);
         }
+
+        public ActionResult FindUser (string username)
+        {
+            var i = context.Users.FirstOrDefault(u => u.UserName == username);
+            return PartialView("_DetailedUser", i);
+        }
     }
 }

@@ -16,7 +16,14 @@
         @foreach (var item in Model)
             {
             <tr>
-                <td class="col-md-3"><a href="#">@item.NickName</a></td>
+                <td>
+                    @Ajax.ActionLink(item.NickName, "FindUser", "Users", new { username = item.UserName }, new AjaxOptions
+               {
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "AdminPage",
+               })
+            </td>
+                @*<td class="col-md-3">@Html.ActionLink(item.NickName, "FindUser", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</td>*@
                 <td class="col-md-3">@item.Email</td>
                 <td class="col-md-2">@item.DateOfBirth.ToString("yyyy-MM-dd")</td>
                 <td class="col-md-2">
