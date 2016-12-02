@@ -1,4 +1,5 @@
-﻿@{ 
+﻿
+@{ 
     int i = 0;
 }
 
@@ -9,9 +10,12 @@
     {
         i++;
         <div class="col-md-12">
+           
             <span style="font-weight:bold; font-style:italic;">#@i by </span>
             <span style="font-weight:bold; font-size:15px;">
-            <a href="#">@thing.PostedBy</a></span>
+            @*<a href="#">@thing.PostedBy</a>*@
+                @Html.ActionLink("hrj", "DirectToUser", "Users", new { username = thing.PostedBy }, new { })
+            </span>
         </div>
             <div class="col-md-12">
                 <span style="font-style:italic; margin-bottom:40px;"> @thing.PostedDate</span>

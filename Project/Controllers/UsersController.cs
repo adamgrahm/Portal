@@ -61,5 +61,11 @@ namespace Project.Controllers
             var i = context.Users.FirstOrDefault(u => u.UserName == username);
             return PartialView("_DetailedUser", i);
         }
+
+        public ActionResult DirectToUser(string username)
+        {
+            var i = context.Users.FirstOrDefault(u => u.NickName == username);
+            return View(i);
+        }
     }
 }
