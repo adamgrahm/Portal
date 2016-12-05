@@ -13,6 +13,13 @@ namespace Project.Models
         public string Info { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string NickName { get; set; }
+        public string ImageURL { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public DateTime Joined { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

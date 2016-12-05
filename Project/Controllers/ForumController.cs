@@ -17,6 +17,8 @@ namespace Project.Controllers
         // GET: Forum
         public ActionResult Index()
         {
+            
+           
             var threads = context.Thread.ToList();
             return View(threads);
         }
@@ -40,6 +42,10 @@ namespace Project.Controllers
             var whichThread = context.Thread.Single(u => u.Id == id);
             if (whichThread.Id == id)
             {
+                if (TempData["ErrorMessage"] != null)
+                {
+                    ViewBag.ErrorMessage = TempData["ErrorMessage"].ToString();
+                }
                 return View(whichThread);
             }
             return RedirectToAction("Index");
@@ -55,7 +61,7 @@ namespace Project.Controllers
             newPost.Thread = findThread;
             var currentUser = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
-            newPost.PostedBy = user.NickName;
+            newPost.PostedBy = user.UserName;
             
             context.ThreadPost.Add(newPost);
             context.SaveChanges();
@@ -73,7 +79,7 @@ namespace Project.Controllers
             replies.PostedDate = DateTime.Now;
             var currentUser = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
-            replies.PostedBy = user.NickName;
+            replies.PostedBy = user.UserName;
             context.Replies.Add(replies);
             try { 
             context.SaveChanges();
@@ -102,6 +108,7 @@ namespace Project.Controllers
         }
 
 
+        [HttpPost]
         public ActionResult SearchForum(string searchstring)
         {
             var i = context.Thread.Where(u => u.Headline.Contains(searchstring));

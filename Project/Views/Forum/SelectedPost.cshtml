@@ -8,7 +8,12 @@
 @if (User.Identity.IsAuthenticated)
 {
 
-
+    if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+            window.alert("Användaren finns inte längre")
+        </script>
+    }
 <br />
 <h2>@Model.Headline</h2>
 

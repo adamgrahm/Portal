@@ -1,16 +1,43 @@
 ﻿@if (Model != null)
 {
-    <br />
-    <hr style="border-color:black; color:black; background-color:black;" />
-    <ul style="border:ridge; list-style:none;" class="col-md-6 col-md-offset-3">
-        <li><label>Nickname:</label> @Model.NickName</li>
-        <li><label>Username:</label> @Model.UserName</li>
-        <li><label>Email:</label> @Model.Email</li>
+    <div style="align-content:center;">
+        <hr style="border-color:black; color:black; background-color:black;" />
+        <ul style="border:ridge; list-style:none;" class="col-md-6 col-md-offset-3">
+            <li><h1 style="font-weight:bold;">@Model.UserName</h1></li>
+            <li style="margin-top:5px;"><img src="@Model.ImageURL" style="height:100px;" /></li>
+            <li><label>First Name: </label> @Model.FirstName</li>
+            <li><label>Last Name: </label> @Model.LastName</li>
+            <li><label>Joined at: </label> @Model.Joined</li>
+            <li><label>Lives in: </label><span> @Model.City, @Model.Country</span></li>
+            <li><label>Email:</label> @Model.Email</li>
 
-        <li><label>Date of birth</label>: @Model.DateOfBirth</li>
-        <li><label>Info:</label> @Model.Info</li>
-    </ul>
+            <li><label>Date of birth</label>: @Model.DateOfBirth</li>
+            <li><label>Info:</label> @Model.Info</li>
+            <li style="margin-bottom:5px;">
+                @if (Model.NickName == "Admin" || Model.NickName == "Moderator")
+                {
+                    <p></p>
+                }
+                else
+                {
+                    @Ajax.ActionLink("Edit", "EditUser", "Users", new { username = Model.UserName }, new AjaxOptions
+                   {
+                       InsertionMode = InsertionMode.Replace,
+                       UpdateTargetId = "AdminPage",
+
+                   }, new { @class = "btn btn-sm btn-info" })
+
+                    @Html.ActionLink("Delete", "DeleteUser", "Users", routeValues: new
+                   { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-danger", @style = "margin-left:3px;" })
+
+                    @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new
+                   { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-success", @style = "margin-left:3px;" })
+                }
+            </li>
+        </ul>
+    </div>
 }
+
 
 
 

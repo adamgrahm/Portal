@@ -51,7 +51,6 @@ namespace Project.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -90,6 +89,21 @@ namespace Project.Models
         [Display(Name = "Nickname")]
         [StringLength(25, ErrorMessage = "Nickname must be beetween 3-25 letters", MinimumLength = 3)]
         public string NickName { get; set; }
+        [Display(Name = "ImageURL")]
+        public string ImageURL { get; set; }
+        [Required]
+        [Display(Name = "Country")]
+        public string Country { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        public DateTime Joined { get; set; }
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
     }
 
     public class ResetPasswordViewModel

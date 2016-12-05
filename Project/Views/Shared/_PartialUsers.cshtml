@@ -3,63 +3,32 @@
 @if (User.IsInRole("Admin"))
 {
 
-<div id="AdminPage2">
-    <table class="table-bordered table-hover table-striped col-md-12">
-        <tr>
-            <th class="col-md-3">Nickname</th>
-            <th class="col-md-3">Email</th>
-            <th class="col-md-2">Date of birth</th>
-            <th class="col-md-2">Role</th>
-            <th class="col-md-2">Edit/Delete</th>
-        </tr>
-
-        @foreach (var item in Model)
-            {
+    <div id="AdminPage2">
+        <table class="table-bordered table-hover table-striped col-md-12">
             <tr>
-                <td>
-                    @Ajax.ActionLink(item.NickName, "FindUser", "Users", new { username = item.UserName }, new AjaxOptions
-               {
-                   InsertionMode = InsertionMode.Replace,
-                   UpdateTargetId = "AdminPage",
-               })
-            </td>
-                @*<td class="col-md-3">@Html.ActionLink(item.NickName, "FindUser", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</td>*@
-                <td class="col-md-3">@item.Email</td>
-                <td class="col-md-2">@item.DateOfBirth.ToString("yyyy-MM-dd")</td>
-                <td class="col-md-2">
-                    
-                    @*@if (item.Roles.FirstOrDefault(x => x.UserId == item.Id).ToString() != null)
-                    { }*@
-
-                        @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new
-                   { username = item.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-success" })
-                   
-                        
-                    
-                    
-                    
-                </td>
-                <td class="col-md-2">
-                    @Ajax.ActionLink("Edit", "EditUser", "Users", new { username = item.UserName }, new AjaxOptions
-               {
-                   InsertionMode = InsertionMode.Replace,
-                   UpdateTargetId = "AdminPage",
-
-               }, new { @class = "btn btn-sm btn-info" })
-
-                    @Html.ActionLink("Delete", "DeleteUser", "Users", routeValues: new
-               { username = item.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
-                    @*@Ajax.ActionLink("Delete", "DeleteUser", "Users", new { username = item.UserName }, new AjaxOptions
-                        {
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "Adminpage"
-                        }, new { @class = "btn btn-sm btn-danger" })*@
-                </td>
+                <th class="col-md-3">Username</th>
+                <th class="col-md-3">Email</th>
             </tr>
-        }
-    </table>
-    <div id="AdminPage">
-    </div>
 
-</div>
+            @foreach (var item in Model.OrderBy(x => x.UserName))
+            {
+                <tr style="height:40px;">
+                    <td>
+                        @Ajax.ActionLink(item.UserName, "FindUser", "Users", new { username = item.UserName }, new AjaxOptions
+                   {
+                       InsertionMode = InsertionMode.Replace,
+                       UpdateTargetId = "AdminPage"
+                   })
+                       
+                    </td>
+                    <td class="col-md-3">@item.Email</td>
+                    
+                    
+                </tr>
+            }
+        </table>
+        <div id="AdminPage">
+        </div>
+
+    </div>
 }

@@ -62,9 +62,16 @@ namespace Project.Controllers
             return PartialView("_DetailedUser", i);
         }
 
-        public ActionResult DirectToUser(string username)
+        public ActionResult DirectToUser(string username, int id)
         {
             var i = context.Users.FirstOrDefault(u => u.NickName == username);
+            if (i == null)
+            {
+                var test = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
+                TempData["ErrorMessage"] = "User does not exist";
+                
+                return RedirectToRoute("Test", new { Id = test });                
+            }
             return View(i);
         }
     }

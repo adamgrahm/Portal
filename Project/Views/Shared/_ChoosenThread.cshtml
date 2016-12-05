@@ -8,17 +8,20 @@
     {
         <ul class="col-md-10 col-md-offset-1" style="list-style:none; border-style:ridge;" ng-controller="myController">
             <li style="margin-bottom:10px; margin-top:10px;">
-                <span style="margin-left:5px; font-size:15px; font-weight:bold; margin-top:10px;"> Posted by: @item.PostedBy</span><span style="font-style:italic;"> - @item.DatePosted</span>
+                <span style="margin-left:5px; font-size:15px; font-weight:bold; margin-top:10px;">
+                    By: @Html.ActionLink((string)item.PostedBy, "DirectToUser", "Users", routeValues: new { username = item.PostedBy, id = item.Id }, htmlAttributes: new { })
+                </span>
+                <span style="font-style:italic;"> - @item.DatePosted</span>
                 <br />
                 <p style="margin-left:5px; white-space:pre-line;" id="test_@item.Id">@item.ForumPost</p>
                 @if (User.Identity.IsAuthenticated)
                 {
 
-                
-                <input type="submit" ng-click="show(@item.Id)" class="btn btn-sm btn-success" value="Reply" />
-                <button type="submit" ng-click="quote('test_' + @item.Id)" class="btn btn-sm btn-default">Quote</button>}
+
+                    <input type="submit" ng-click="show(@item.Id)" class="btn btn-sm btn-success" value="Reply" />
+                    <button type="submit" ng-click="quote('test_' + @item.Id)" class="btn btn-sm btn-default">Quote</button>}
                 <span ng-show="showReply">
-                    <input type="submit" ng-click="hide(@item.Id)" class="btn btn-sm btn-danger" value="Hide" /> 
+                    <input type="submit" ng-click="hide(@item.Id)" class="btn btn-sm btn-danger" value="Hide" />
                     @if (User.Identity.IsAuthenticated)
                 {
 
@@ -34,7 +37,7 @@
             </li>
             <li><hr style="background-color:grey; color:grey; border-color:grey;" /></li>
             <li style="margin-bottom:10px;" class="col-md-offset-1">
-                
+
                 @Html.Action("ShowReplies", new { id = item.Id })
             </li>
 

@@ -4,16 +4,19 @@
 @{
     ViewBag.Title = "Index";
     var i = Model;
+    
 }
 @if (User.Identity.IsAuthenticated)
 {
-    
+
+
     <div>
        <hr style="border-color:black; color:black; background-color:black;" />
         @using (Ajax.BeginForm("SearchForum", new AjaxOptions
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "ForumSite",
+            HttpMethod = "Post"
         }, null, htmlAttributes: new { @class = "col-xs-5" }))
         {
             

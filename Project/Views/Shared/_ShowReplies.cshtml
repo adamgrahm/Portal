@@ -13,8 +13,7 @@
            
             <span style="font-weight:bold; font-style:italic;">#@i by </span>
             <span style="font-weight:bold; font-size:15px;">
-            @*<a href="#">@thing.PostedBy</a>*@
-                @Html.ActionLink("hrj", "DirectToUser", "Users", new { username = thing.PostedBy }, new { })
+                @Html.ActionLink((string)thing.PostedBy, "DirectToUser", "Users", new { username = thing.PostedBy, id = thing.Id }, new { })
             </span>
         </div>
             <div class="col-md-12">

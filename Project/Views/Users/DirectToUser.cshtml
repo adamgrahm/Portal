@@ -1,5 +1,18 @@
-﻿
-<ul style="border:ridge;" class="col-md-6 col-md-offset-3">
-    <li>Nickname: @Model.NickName</li>
-</ul>
+﻿@if (Model != null)
+{
+    <div style="align-content:center;">
+        <hr style="border-color:black; color:black; background-color:black;" />
+        <ul style="border:ridge; list-style:none;" class="col-md-6 col-md-offset-3">
+            <li><h1 style="font-weight:bold;">@Model.UserName</h1></li>
+            <li style="margin-top:5px;"><img src="@Model.ImageURL" style="height:200px;" /></li>
+            <li><label>First Name: </label> @Model.FirstName</li>
+            <li><label>Last Name: </label> @Model.LastName</li>
+            <li><label>Joined at: </label> @Model.Joined</li>
+            <li><label>Lives in: </label><span> @Model.City, @Model.Country</span></li>
+            <li><label>Email:</label> @Model.Email</li>
 
+            <li><label>Date of birth</label>: @Model.DateOfBirth.ToString("yyyy-MM-dd")</li>
+            <li><label>Info:</label> @Model.Info</li>
+        </ul>
+    </div>
+}

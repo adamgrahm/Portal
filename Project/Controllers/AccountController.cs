@@ -175,8 +175,10 @@ namespace Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,
-                    DateOfBirth = model.DateOfBirth, Info = model.Info, NickName = model.NickName };
+                var user = new ApplicationUser { UserName = model.NickName, Email = model.Email,
+                    DateOfBirth = model.DateOfBirth, Info = model.Info, NickName = model.NickName, City = model.City,
+                    Country = model.Country, FirstName = model.FirstName, LastName = model.LastName,
+                    ImageURL = model.ImageURL, Joined = DateTime.Now };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
