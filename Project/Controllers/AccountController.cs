@@ -23,6 +23,11 @@ namespace Project.Controllers
         {
         }
 
+        public ActionResult ChangeProfile()
+        {
+            return View();
+        }
+
         public ActionResult MakeMod(string username)
         {
             var i = context.Users.FirstOrDefault(u => u.UserName == username);

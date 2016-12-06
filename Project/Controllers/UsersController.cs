@@ -30,13 +30,16 @@ namespace Project.Controllers
 
         //FUNKAR EJ!!!!!!!!!
         [HttpPost]
-        public ActionResult SaveUser(string username, [Bind(Include = "NickName, Info, DateOfBirth")] ApplicationUser user)
+        public ActionResult EditUser(string username, 
+            [Bind(Include = "Email, FirstName, LastName, NickName, UserName, DateOfBirth, Joined, Info, Country, City")]
+            ApplicationUser user)
         {
             var i = context.Users.FirstOrDefault(u => u.UserName == username);
             user.UserName = username;
             i = user;
+            //context.Entry(i).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
-            return PartialView("_PartialUsers", i);
+            return RedirectToAction("Index", context.Users.ToList());
         }
 
         public ActionResult DeleteUser(string username)
@@ -73,6 +76,36 @@ namespace Project.Controllers
                 return RedirectToRoute("Test", new { Id = test });                
             }
             return View(i);
+        }
+
+        public ActionResult DirectFromReply (string username, int id)
+        {
+            var i = context.Users.FirstOrDefault(u => u.NickName == username);
+            var o = context.Replies.Where(x => x.Id == id).Select(t => t.Threadpost.Id).FirstOrDefault();
+            if (i == null)
+            {
+                var test = context.ThreadPost.Where(u => u.Id == o).Select(y => y.Thread.Id).FirstOrDefault();
+                TempData["ErrorMessage"] = "User does not exist";
+
+                return RedirectToRoute("Test", new { Id = test });
+            }
+
+            return View("DirectToUser",i);
+        }
+
+        [Authorize]
+        public ActionResult SearchForUser(string username)
+        {
+            var i = context.Users.Where(x => x.UserName.Contains(username));
+            ViewBag.Message = username;
+            return View(i);
+        }
+
+        [Authorize]
+        public ActionResult DirectSearch(string username)
+        {
+            var i = context.Users.FirstOrDefault(x => x.UserName == username);
+            return View("DirectToUser", i);
         }
     }
 }

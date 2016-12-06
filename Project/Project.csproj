@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -253,6 +254,14 @@
     <Compile Include="Migrations\201611250830058_AddedPropForFourmReplies.cs" />
     <Compile Include="Migrations\201611250830058_AddedPropForFourmReplies.Designer.cs">
       <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612061520460_addedToUser.cs" />
+    <Compile Include="Migrations\201612061520460_addedToUser.Designer.cs">
+      <DependentUpon>201612061520460_addedToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612061527395_AddedSentFrom.cs" />
+    <Compile Include="Migrations\201612061527395_AddedSentFrom.Designer.cs">
+      <DependentUpon>201612061527395_AddedSentFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1181,6 +1190,11 @@
     <Content Include="Views\Shared\_PartialForum.cshtml" />
     <Content Include="Views\Shared\_DetailedUser.cshtml" />
     <Content Include="Views\Users\DirectToUser.cshtml" />
+    <Content Include="Views\Users\SearchForUser.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\ShowMessages.cshtml" />
+    <Content Include="Views\Shared\_ProfileSideBar.cshtml" />
+    <Content Include="Views\Account\ChangeProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1228,6 +1242,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611250830058_AddedPropForFourmReplies.resx">
       <DependentUpon>201611250830058_AddedPropForFourmReplies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612061520460_addedToUser.resx">
+      <DependentUpon>201612061520460_addedToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612061527395_AddedSentFrom.resx">
+      <DependentUpon>201612061527395_AddedSentFrom.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

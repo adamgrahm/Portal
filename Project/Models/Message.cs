@@ -21,6 +21,12 @@ namespace Project.Models
 
         public DateTime DateSent { get; set; }
 
+        public string ToUser { get; set; }
+
+        public string FromUser { get; set; }
+
+
+
 
 
 

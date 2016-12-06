@@ -1,26 +1,25 @@
-﻿@model Project.Models.IndexViewModel
-@{
-    ViewBag.Title = "Manage";
-}
-<div class="col-md-8 col-md-offset-2">
-    <br />
-    <p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <h2>Change your account settings</h2>
-        <hr />
-        <ul class="dl-horizontal" style="list-style:none;">
-            <li>
+﻿@model Project.Models.ApplicationUser
 
-                @if (Model.HasPassword)
-            {
-                    <h4 style="float:left;">@Html.ActionLink("Change your password", "ChangePassword")</h4>
-                }
-                else
-                {
-                    @Html.ActionLink("Create", "SetPassword")
-                }
 
-            </li>
-        </ul>
+<div class="col-md-10">
+    <h2>This is your profile</h2>
+    <hr />
+    <div class="col-md-4">
+        @Html.Partial("_ProfileSideBar")
     </div>
+    <div class="col-md-8">
+        <div class="col-xs-4 hidden-xs hidden-sm">
+            <img src="@Model.ImageURL" style="max-width:200px;" />
+        </div>
+        <ul style="list-style:none;" class="col-xs-7 col-sm-offset-1">
+            <li><h2 style="font-weight:bold;">@Model.UserName</h2></li>
+            <li><label>First Name: </label> @Model.FirstName</li>
+            <li><label>Last Name: </label> @Model.LastName</li>
+            <li><label>Joined at: </label> @Model.Joined.ToString("yyyy-MM-dd")</li>
+            <li><label>Lives in: </label><span> @Model.City, @Model.Country</span></li>
+            <li><label>Email:</label> @Model.Email</li>
+            <li><label>Date of birth</label>: @Model.DateOfBirth.ToString("yyyy-MM-dd")</li>
+            <li><label>Info:</label> @Model.Info</li>
+            </ul>
+</div>
 </div>
