@@ -1,6 +1,7 @@
 ﻿using Project.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,16 +31,19 @@ namespace Project.Controllers
 
         //FUNKAR EJ!!!!!!!!!
         [HttpPost]
-        public ActionResult EditUser(string username, 
-            [Bind(Include = "Email, FirstName, LastName, NickName, UserName, DateOfBirth, Joined, Info, Country, City")]
-            ApplicationUser user)
+        public ActionResult EditUser(string username, string firstname, string lastname, string email,
+            string country, string city, string image, string info)
         {
             var i = context.Users.FirstOrDefault(u => u.UserName == username);
-            user.UserName = username;
-            i = user;
-            //context.Entry(i).State = System.Data.Entity.EntityState.Modified;
+            i.FirstName = firstname;
+            i.LastName = lastname;
+            i.Email = email;
+            i.Country = country;
+            i.City = city;
+            i.ImageURL = image;
+            i.Info = info;
             context.SaveChanges();
-            return RedirectToAction("Index", context.Users.ToList());
+            return RedirectToAction("Index", i);
         }
 
         public ActionResult DeleteUser(string username)

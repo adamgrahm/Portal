@@ -17,7 +17,7 @@ namespace Project.Migrations
 
         protected override void Seed(Project.Models.ApplicationDbContext context)
         {
-            if (!context.Users.Any(u => u.UserName == "Admin@Admin.Admin"))
+            if (!context.Users.Any(u => u.UserName == "Admin"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
@@ -31,7 +31,7 @@ namespace Project.Migrations
                 manager.AddToRole(user.Id, "Admin");
             }
 
-                if (!context.Users.Any(u => u.UserName == "Mod@Mod.Mod"))
+                if (!context.Users.Any(u => u.UserName == "Moderator"))
                 {
                     var modstore = new UserStore<ApplicationUser>(context);
                     var modmanager = new UserManager<ApplicationUser>(modstore);

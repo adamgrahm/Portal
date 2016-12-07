@@ -9,6 +9,7 @@
         </tr>
         @foreach (var item in Model)
         {
+            
             <tr>
                 <td class="col-md-3 col-md-offset-1">@Html.ActionLink(item.Headline, "SelectedPost", new { id = item.Id })</td>
                 <td class="col-md-3 col-md-offset-1">@item.PostedBy</td>

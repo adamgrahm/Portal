@@ -25,7 +25,26 @@ namespace Project.Controllers
 
         public ActionResult ChangeProfile()
         {
-            return View();
+            var currUser = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditProfile(string username, string firstname, string lastname, string email,
+            string country, string city, string image, string info)
+        {
+            var i = context.Users.FirstOrDefault(x => x.UserName == username);
+            i.FirstName = firstname;
+            i.LastName = lastname;
+            i.Email = email;
+            i.Country = country;
+            i.City = city;
+            i.ImageURL = image;
+            i.Info = info;
+            context.SaveChanges();
+            return RedirectToAction("Index", "Manage", i);
         }
 
         public ActionResult MakeMod(string username)

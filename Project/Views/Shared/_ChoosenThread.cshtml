@@ -14,10 +14,13 @@
                 {
 
 
-                    <input type="submit" ng-click="show(@item.Id)" class="btn btn-sm btn-success" value="Reply" />
-                    <button type="submit" ng-click="quote('test_' + @item.Id)" class="btn btn-sm btn-default">Quote</button>}
+                    <input type="submit" ng-click="show(@item.Id)" ng-show="ShowButton" class="btn btn-sm btn-success" value="Reply" />
+                    <input type="submit" ng-click="hide(@item.Id)" ng-show="HideButton" class="btn btn-sm btn-danger" value="Hide" />
+                    <button type="submit" ng-click="quote('test_' + @item.Id)" ng-show="QuoteButton" class="btn btn-sm btn-default">Quote</button>
+                    <input type="submit" ng-click="unquote(@item.Id)" ng-show="UnquoteButton" class="btn btn-sm btn-default" value="Unquote" />
+                }
                 <span ng-show="showReply">
-                    <input type="submit" ng-click="hide(@item.Id)" class="btn btn-sm btn-danger" value="Hide" />
+                    
                     @if (User.Identity.IsAuthenticated)
                 {
 

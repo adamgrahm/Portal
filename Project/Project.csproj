@@ -1193,8 +1193,8 @@
     <Content Include="Views\Users\SearchForUser.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Message\ShowMessages.cshtml" />
-    <Content Include="Views\Shared\_ProfileSideBar.cshtml" />
     <Content Include="Views\Account\ChangeProfile.cshtml" />
+    <Content Include="Views\Shared\_PartialBlogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

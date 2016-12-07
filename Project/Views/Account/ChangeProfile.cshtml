@@ -1,10 +1,95 @@
-﻿
+﻿@model Project.Models.ApplicationUser
 
-<h2>Change your profile</h2>
+<h1 style="font-weight:bold;">Change your profile</h1>
 <hr />
 <div class="col-md-4">
-    @Html.Partial("_ProfileSideBar")
+    <ul class="nav nav-pills nav-stacked" style="overflow:hidden;">
+        <li><a href="~/Manage/Index">Start</a></li>
+        <li class="active" style="font-size:30px;"><a href="~/Account/ChangeProfile">Change profile</a></li>
+        <li><a href="~/Manage/ChangePassword">Change Password</a></li>
+        <li><a href="~/Message/ShowMessages">Messages</a></li>
+    </ul>
 </div>
 <div class="col-md-8">
 
-</div>
+    @using (Html.BeginForm("EditProfile", "Account", routeValues: new { username = Model.UserName }, method: FormMethod.Post, htmlAttributes: new { }))
+    {
+        <div class="form-group">
+            <label class="col-xs-3 control-label">First Name</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="firstname" value="@Model.FirstName" placeholder="Enter your first name..." required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">Last Name</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="lastname" placeholder="Enter your last name..." value="@Model.LastName" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">Email</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="email" placeholder="Enter your email..." value="@Model.Email" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">Country</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="country" placeholder="Enter your country..." value="@Model.Country" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">City</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="city" placeholder="Enter your city..." value="@Model.City" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">Image</label>
+            <div class="col-xs-9">
+                <input type="text" class="form-control" name="image" placeholder="Enter an image url..." value="@Model.ImageURL" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3">Info</label>
+            <div class="col-xs-9">
+                <textarea type="text" style="height:200px;" class="form-control" name="info" placeholder="Info..." required>@Model.Info</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-info" value="Submit" />
+        </div>
+    }
+
+        @*@using (Html.BeginForm("EditProfile", "Account", routeValues: new { username = Model.UserName }, method: FormMethod.Post, htmlAttributes: new { }))
+        {
+            <hr style="border-color:black; color:black; background-color:black;" />
+            <br />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Info, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.Info, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Country, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.City, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-info btn-lg" value="Save" />
+                </div>
+            </div>
+        }*@
+
+    </div>

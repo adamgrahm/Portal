@@ -37,5 +37,11 @@ namespace Project.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", context.Blogposts.ToList());
         }
+
+        public ActionResult Search (string moviename)
+        {
+            var i = context.Blogposts.Where(x => x.Headline.Contains(moviename));
+            return PartialView("_PartialBlogs", i);
+        }
     }
 }
