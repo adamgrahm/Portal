@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<Project.Models.Blog>
 @if (User.Identity.IsAuthenticated)
 {
-    int i = 0;
 
-    <div style="padding-top:20px;" id="Top">
+    <div class="col-md-10" style="padding-top:20px;" id="Top">
 
         <h1>Filmreviews</h1>
         <hr style="background-color:black; border-color:black; color:black;" />
@@ -13,34 +12,16 @@
             @Html.ActionLink("Create a new blogpost", "NewBlogPost", null, new { @class = "btn btn-info btn-lg" })
             <hr style="background-color:black; border-color:black; color:black;" />
         }
-        <div class="col-md-12">
-            <div class="col-md-6">
-                @using (Ajax.BeginForm("Search", "Blog", new AjaxOptions
-                {
-                    UpdateTargetId = "Blogs",
-                    HttpMethod = "Post",
-                    InsertionMode = InsertionMode.Replace
-                }))
-                {
-                    <div class="form-group">
-                        <input type="text" placeholder="Serach for a filmreview..." name="moviename" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-success" value="Search" />
-                    </div>
 
-                }
-            </div>
-        </div>
+
 
         <br />
 
-        <div class="col-md-3 col-md-offset-1 hidden-xs hidden-sm" style="float:right;" id="BlogsAside">
+        <div class="col-md-4 hidden-xs hidden-sm" id="BlogsAside">
             <ul class="nav nav-pills nav-stacked sideList">
                 <li><h3>Blogposts</h3></li>
                 @foreach (var item in Model.Reverse())
                 {
-                    i++;
                     <li><a href="#@item.Id">#@item.Id - @item.Headline</a></li>
                     }
 
@@ -48,6 +29,23 @@
         </div>
 
         <div class="col-md-8">
+
+                    @using (Ajax.BeginForm("Search", "Blog", new AjaxOptions
+                {
+                    UpdateTargetId = "Blogs",
+                    HttpMethod = "Post",
+                    InsertionMode = InsertionMode.Replace
+                }))
+                {
+                        <div class="form-group">
+                            <input type="text" placeholder="Serach for a filmreview..." name="moviename" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Search" />
+                        </div>
+
+                    }
+
             @Html.Partial("_PartialBlogs")
         </div>
         <br>

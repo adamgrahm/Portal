@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+<div class="col-md-10">
+    <h2>Send a message</h2>
+    <hr style="border-color:black; background-color:black; color:black;" />
+    <div class="col-md-4">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="~/Home/Index">Homepage</a></li>
+                <li><a href="~/Blog/Index">Filmreviews</a></li>
+                <li><a href="~/Forum/Index">Forum</a></li>
+                <li><a href="~/Manage/Index">Your profile page</a></li>
+            </ul>
+    </div>
+    <div class="col-md-8">
+        @using (Html.BeginForm("NewMessage", "Message", null, FormMethod.Post, htmlAttributes: new { }))
+        {
+            <label>Select a user to message:</label>
+            <div class="form-group">
+                <select name="username" class="form-control">
+                    @foreach (var item in Model)
+                {
+                        <option>@item.UserName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Write your message...</label>
+                <textarea style="height:150px;" placeholder="Write a message..." name="content" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-sm btn-success" value="Send" />
+            </div>
+        }
+    </div>
+</div>

@@ -263,9 +263,14 @@
     <Compile Include="Migrations\201612061527395_AddedSentFrom.Designer.cs">
       <DependentUpon>201612061527395_AddedSentFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612080811113_AddedConversationModel.cs" />
+    <Compile Include="Migrations\201612080811113_AddedConversationModel.Designer.cs">
+      <DependentUpon>201612080811113_AddedConversationModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\Conversations.cs" />
     <Compile Include="Models\ForumReplies.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -278,7 +283,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\jquery.smooth.scroll.css" />
+    <Content Include="Content\css\jquery.smooth.scroll.min.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\images\smooth_scroll_arrow.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -376,6 +384,8 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Content\less\jquery.smooth.scroll.less" />
+    <Content Include="Content\css\jquery.smooth.scroll.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1125,6 +1135,9 @@
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Scripts\jquery.smooth.scroll-1.0.1.js" />
+    <Content Include="Scripts\jquery.smooth.scroll-1.0.1.min.js" />
+    <Content Include="Scripts\jquery.smooth.scroll-1.0.1.min.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
@@ -1195,6 +1208,9 @@
     <Content Include="Views\Message\ShowMessages.cshtml" />
     <Content Include="Views\Account\ChangeProfile.cshtml" />
     <Content Include="Views\Shared\_PartialBlogs.cshtml" />
+    <Content Include="Views\Message\ShowConversation.cshtml" />
+    <Content Include="Views\Shared\_PartialMessages.cshtml" />
+    <Content Include="Views\Message\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1248,6 +1264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612061527395_AddedSentFrom.resx">
       <DependentUpon>201612061527395_AddedSentFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612080811113_AddedConversationModel.resx">
+      <DependentUpon>201612080811113_AddedConversationModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -13,8 +13,8 @@ namespace Project
                         "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/angular.js",
                         "~/Scripts/site.js",
-                        "~/Scripts/jquery-ui-1.12.1.js"));
-
+                        "~/Scripts/jquery-ui-1.12.1.js",
+                        "~/Scripts/jquery.smooth.scroll-1.0.1.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

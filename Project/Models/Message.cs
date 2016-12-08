@@ -11,7 +11,9 @@ namespace Project.Models
         [Key]
         public int Id { get; set; }
 
-        public string Headline { get; set; }
+        public string Identifier { get; set; }
+
+        //public string Headline { get; set; }
 
         public string Content { get; set; }
 
@@ -24,6 +26,9 @@ namespace Project.Models
         public string ToUser { get; set; }
 
         public string FromUser { get; set; }
+
+        //public Conversations Conversation { get; set; }
+
 
 
 

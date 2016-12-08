@@ -1,4 +1,11 @@
-﻿<footer class="nav navbar-fixed-bottom text-center col-md-12"
+﻿@{ 
+    var day = DateTime.Now.DayOfWeek;
+    var date = DateTime.Now.Day;
+    var month = DateTime.Now.Month;
+    var year = DateTime.Now.Year;
+}
+
+<footer class="nav navbar-fixed-bottom text-center col-md-12"
         style="background-color:black;">
-    <p style="color:white;">Todays date is: @DateTime.Now.ToString("yyyy-MM-dd") || &copy; Adam Grahm</p>
+    <p style="color:white;">Today is @day the @date/@month - @year </p>
 </footer>

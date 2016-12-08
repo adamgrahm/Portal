@@ -42,6 +42,7 @@ namespace Project.Models
         public DbSet<ThreadPost> ThreadPost { get; set; }
         public DbSet<Message> Message { get; set; }
         public DbSet<ForumReplies> Replies { get; set; }
+        public DbSet<Conversations> Conversations { get; set; }
 
 
 

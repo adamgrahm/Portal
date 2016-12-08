@@ -24,9 +24,6 @@
                             @using (Html.BeginForm("NewMessage", "Message", new { username = Model.UserName }, FormMethod.Post))
                             {
                                 <div class="form-group">
-                                    <input type="text" placeholder="Headline..." name="headline" class="form-control" />
-                                </div>
-                                <div class="form-group">
                                     <textarea type="text" placeholder="Message..." name="content" style="height:200px;" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">

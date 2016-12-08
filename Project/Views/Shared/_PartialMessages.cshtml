@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+
+
+<div id="messageSite">
+    @foreach (var item in Model)
+            {
+
+        <h4>@Html.ActionLink(item.UserName, "ShowConversation", "Message", routeValues: new { username = item.UserName }, htmlAttributes: new { })</h4>
+                <hr />
+    }
+</div>
+

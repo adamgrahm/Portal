@@ -18,18 +18,22 @@ namespace Project.Controllers
             return View(mess);
         }
 
-        public ActionResult NewMessage(string username, string headline, string content)
+
+        [HttpPost]
+        public ActionResult NewMessage(string username, string content)
         {
             Message mess = new Message();
             var i = context.Users.FirstOrDefault(x => x.UserName == username);
+            
             mess.SentTo = i;
             mess.ToUser = mess.SentTo.UserName;
-            mess.Headline = headline;
+            //mess.Headline = headline;
             mess.Content = content;
             var currentUser = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(r => r.Id == currentUser);
             mess.SentFrom = user;
             mess.FromUser = user.UserName;
+            mess.Identifier = i.UserName + user.UserName;
             mess.DateSent = DateTime.Now;
             context.Message.Add(mess);
             context.SaveChanges();
@@ -38,10 +42,33 @@ namespace Project.Controllers
 
         public ActionResult ShowMessages()
         {
+            var i= context.Users.ToList();
+            return View(i);
+        }
+
+        public ActionResult ShowConversation(string username)
+        {
             var currUser = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            var messages = context.Message.Where(x => x.ToUser == user.UserName);
-            return View(messages);
+            var i = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName);
+            if (i.Count() > 0)
+            {
+                return View(i);
+            }
+            ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
+            return View();
+        }
+
+        public ActionResult Search(string username)
+        {
+            var i = context.Users.Where(x => x.UserName.Contains(username));
+            return PartialView("_PartialMessages", i);
+        }
+
+        public ActionResult Message()
+        {
+            var i = context.Users.ToList();
+            return View(i);
         }
     }
 }

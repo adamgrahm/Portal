@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="Content\css\jquery.smooth.scroll.css" />
+    <Content Include="Content\css\jquery.smooth.scroll.min.css" />
+    <Content Include="Content\images\smooth_scroll_arrow.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -905,10 +908,14 @@
     <Content Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.smooth.scroll-1.0.1.js" />
+    <Content Include="Scripts\jquery.smooth.scroll-1.0.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\css\jquery.smooth.scroll.css.map" />
+    <None Include="Content\less\jquery.smooth.scroll.less" />
     <None Include="packages.config" />
     <None Include="Scripts\angular-animate.min.js.map" />
     <None Include="Scripts\angular-aria.min.js.map" />
@@ -924,6 +931,7 @@
     <None Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\errors.json" />
     <None Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Scripts\jquery.smooth.scroll-1.0.1.min.js.map" />
     <None Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>

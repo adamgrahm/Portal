@@ -1,4 +1,29 @@
-﻿//Visar och döljer en reply textarea för svar på första posten!
+﻿
+
+//(function () {
+//    $("#ToTheTop").hide();
+//})();
+
+
+window.onscroll = function () { test() };
+    function test() {
+        if (document.body.scrollTop > 1200 && !$("#ToTheTop").length) {
+            $("#NavbarTest").append('<li><a href="#" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</a></li>');
+        }
+        else if (document.body.scrollTop < 1200) {
+            $("#ToTheTop").remove();
+        }
+    }
+
+    $("button").click(function () {
+        $('html,body').animate({
+            scrollTop: $(".navbartest").offset().top
+        },
+            'slow');
+    });
+
+
+//Visar och döljer en reply textarea för svar på första posten!
 (function () {
     var app = angular.module("myModule", [])
 
@@ -91,3 +116,4 @@
 
     })
 })();
+
