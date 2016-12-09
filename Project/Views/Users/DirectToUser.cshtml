@@ -1,40 +1,19 @@
-﻿@using Project.Models
-@model Project.Models.ApplicationUser
+﻿@model Project.Models.ApplicationUser
 
 
-@if (Model != null)
-{
-    <div ng-app="HideMessage">
-        <div ng-controller="HideMessageController">
-            <div style="align-content:center;">
-                <hr style="border-color:black; color:black; background-color:black;" />
-                <ul style="border:ridge; list-style:none;" class="col-md-6 col-md-offset-3">
-                    <li><h1 style="font-weight:bold;">@Model.UserName</h1></li>
-                    <li style="margin-top:5px;"><img src="@Model.ImageURL" style="height:200px;" /></li>
-                    <li><label>Name: </label> @Model.FirstName</li>
-                    <li><label>Joined at: </label> @Model.Joined.ToString("yyyy-MM-dd")</li>
-                    <li><label>Lives in: </label><span> @Model.Country</span></li>
-                    <li><label>Born in:</label>: @Model.DateOfBirth.ToString("yyyy")</li>
-                    <li><label>Info:</label> @Model.Info</li>
-                    <li>
-                        <input type="submit" value="Write a message to @Model.UserName" class="btn btn-sm btn-success" ng-click="show()" ng-show="ShowButton" style="margin-bottom:10px;" />
-                        <input type="submit" value="Hide message" class="btn btn-sm btn-danger" ng-click="hide()" ng-show="HideButton" style="margin-bottom:10px;" />
-                        
-                        <div ng-show="showMessage">
-                            @using (Html.BeginForm("NewMessage", "Message", new { username = Model.UserName }, FormMethod.Post))
-                            {
-                                <div class="form-group">
-                                    <textarea type="text" placeholder="Message..." name="content" style="height:200px;" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-success" value="Send!" />
-                                </div>
 
-                            }
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-}
+<div class="col-md-3">
+    <ul class="nav nav-stacked nav-pills hidden-xs hidden-sm" style="border-right:ridge;" id="BlogsAside">
+        <li><br /></li>
+        <li><a href="~/Home/Index">Home</a></li>
+        <li><a href="~/Blog/Index">Filmreviews</a></li>
+        <li><a href="~/Forum/Index">Forum</a></li>
+        <li><a href="~/Message/Message">Messages</a></li>
+        <li><a href="~/Manage/Index">Your profile page</a></li>
+    </ul>
+</div>
+
+<div class="col-md-9" id="UserProfile">
+    @Html.Partial("_UserProfile")
+</div>
+

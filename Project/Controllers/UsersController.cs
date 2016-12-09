@@ -111,5 +111,11 @@ namespace Project.Controllers
             var i = context.Users.FirstOrDefault(x => x.UserName == username);
             return View("DirectToUser", i);
         }
+
+        public ActionResult ShowUser()
+        {
+            var i = context.Users.ToList();
+            return View(i);
+        }
     }
 }

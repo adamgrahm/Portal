@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Project.Models.Message>
 
+@if (User.Identity.IsAuthenticated)
+{
+
+
 <div class="col-md-10">
     <h1 style="font-weight:bold;">Messages</h1>
     <hr />
@@ -24,9 +28,8 @@
                 <p style="font-style:italic">Date: @item.DateSent</p>
                 <p>@item.Content</p>
                 <br />
-                
+
             }
-            <a href="#" class="btn btn-info">Back to the top!</a>
         }
         else
         {
@@ -35,11 +38,11 @@
                 <h1>@ViewBag.ErrorMessage</h1>
                     <br />
                     <h2>Would you like to create one?</h2>
-                    @Html.ActionLink("Create", "Message", "Message", null, new { @class = "btn btn-sm btn-success"})
+                    @Html.ActionLink("Create", "Message", "Message", null, new { @class = "btn btn-sm btn-success" })
             }
         }
 
 
     </div>
 </div>
-
+}

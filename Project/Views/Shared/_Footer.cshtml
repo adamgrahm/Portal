@@ -1,11 +1,17 @@
 ﻿@{ 
-    var day = DateTime.Now.DayOfWeek;
-    var date = DateTime.Now.Day;
-    var month = DateTime.Now.Month;
-    var year = DateTime.Now.Year;
+        var day = DateTime.Now.DayOfWeek;
+        var date = DateTime.Now.Day;
+        var month = DateTime.Now.ToString("MMMM");
+        var year = DateTime.Now.Year;
+        
 }
+<script>
+    function month(){
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    new Date.toLocaleDateString("se-SE", options);}
+</script>
 
 <footer class="nav navbar-fixed-bottom text-center col-md-12"
         style="background-color:black;">
-    <p style="color:white;">Today is @day the @date/@month - @year </p>
+    <p style="color:white;">Today is @day the @date of @month - @year </p>
 </footer>

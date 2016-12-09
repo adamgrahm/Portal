@@ -1211,6 +1211,10 @@
     <Content Include="Views\Message\ShowConversation.cshtml" />
     <Content Include="Views\Shared\_PartialMessages.cshtml" />
     <Content Include="Views\Message\Message.cshtml" />
+    <Content Include="Views\Shared\_PartialConv.cshtml" />
+    <Content Include="Views\Shared\_MessageForm.cshtml" />
+    <Content Include="Views\Shared\_UserProfile.cshtml" />
+    <Content Include="Views\Users\ShowUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

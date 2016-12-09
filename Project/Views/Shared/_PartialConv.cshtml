@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Project.Models.Message>
+
+@if (Model != null)
+{
+    <ul style="list-style:none;">
+        <li>
+            @Ajax.ActionLink("Reply", "ReturnForm", "Message", new AjaxOptions
+       {
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "testar"
+       }, new { @class = "btn btn-sm btn-success" })
+        </li>
+
+        @foreach (var item in Model.Reverse())
+        {
+
+
+        <li><h2>From: @item.FromUser</h2></li>
+        <li><p style="font-style:italic">Date: @item.DateSent</p></li>
+        <li><p>@item.Content</p></li>
+        <li><br /></li>
+        }
+    </ul>
+
+}
+else if (ViewBag.ErrorMessage != null)
+{
+
+   
+        <h1> @ViewBag.ErrorMessage </h1>
+        <br />
+        <h2> Would you like to create one ?</h2>
+           @Ajax.ActionLink("Create", "ReturnForm", "Message", new AjaxOptions
+           {
+               InsertionMode = InsertionMode.Replace,
+               UpdateTargetId = "testar"
+           }, new { @class = "btn btn-sm btn-success" })
+
+}
+
+else {
+<h2>Message Sent!</h2>
+}

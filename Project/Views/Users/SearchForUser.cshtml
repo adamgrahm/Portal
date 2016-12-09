@@ -8,15 +8,13 @@
             <br />
             <h3>Search results for "@ViewBag.Message"</h3>
             <hr style="color:black; background-color:black; border-color:black;" />
-            foreach (var item in Model)
+            <ul class="nav nav-pills nav-stacked">
+                @foreach (var item in Model)
                 {
-
-                    <ul class="col-md-12" style="list-style:none; border:ridge;">
-                        <li>@Html.ActionLink(item.UserName, "DirectSearch", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</li>
-                        <li>@item.City, @item.Country</li>
-                    </ul>
-
-            }
+                    <li>@Html.ActionLink(item.UserName + " || " + item.City +","+ item.Country, "DirectSearch", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</li>
+                    <li><br /></li>
+                }
+            </ul>
         }
         else
         {

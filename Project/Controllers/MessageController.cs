@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
@@ -37,7 +38,7 @@ namespace Project.Controllers
             mess.DateSent = DateTime.Now;
             context.Message.Add(mess);
             context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return PartialView("_PartialConv");
         }
 
         public ActionResult ShowMessages()
@@ -69,6 +70,26 @@ namespace Project.Controllers
         {
             var i = context.Users.ToList();
             return View(i);
+        }
+
+        [HttpPost]
+        public ActionResult PartialConversation(string username)
+        {
+            var currUser = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
+            var i = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName);
+            if (i.Count() > 0)
+            {
+                return PartialView("_PartialConv", i);
+            }
+            ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
+            return PartialView("_PartialConv");
+        }
+
+        public ActionResult ReturnForm()
+        {
+            var i = context.Users.ToList();
+            return PartialView("_MessageForm", i);
         }
     }
 }

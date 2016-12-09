@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Project.Models.ApplicationUser>
+
+@if (Model != null)
+{
+    <div class="col-md-10 col-md-offset-2">
+        <h1>Users</h1>
+        <hr style="border-color:black; color:black; background-color:black;" />
+        <ul class="nav nav-pills nav-stacked">
+            @foreach (var item in Model)
+            {
+                <li>@Html.ActionLink(item.UserName, "DirectSearch", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</li>
+            }
+        </ul>
+    </div>
+}
+

@@ -8,19 +8,19 @@
 window.onscroll = function () { test() };
     function test() {
         if (document.body.scrollTop > 1200 && !$("#ToTheTop").length) {
-            $("#NavbarTest").append('<li><a href="#" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</a></li>');
+            $("#NavbarTest").append('<li><a href="#" onClick="test1()" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</span></a>');
         }
         else if (document.body.scrollTop < 1200) {
             $("#ToTheTop").remove();
         }
     }
 
-    $("button").click(function () {
-        $('html,body').animate({
-            scrollTop: $(".navbartest").offset().top
-        },
-            'slow');
-    });
+    function test1() {
+        window.scrollTo(0,0)
+
+    };
+
+
 
 
 //Visar och döljer en reply textarea för svar på första posten!
@@ -85,35 +85,5 @@ window.onscroll = function () { test() };
 
 }());
 
-(function () {
-    var app1 = angular.module("HideMessage", []);
 
-    app1.controller("HideMessageController", function ($scope) {
-        $scope.showMessage = false;
-        $scope.HideButton = false;
-        $scope.ShowButton = true;
-
-        $scope.show = function () {
-            $scope.showMessage = true;
-            $scope.HideButton = true;
-            $scope.ShowButton = false;
-        }
-
-        $scope.hide = function () {
-            $scope.showMessage = false;
-            $scope.HideButton = false;
-            $scope.ShowButton = true;
-        }
-    })
-})();
-
-(function () {
-
-    var app2 = angular.module("ProfilePage", []);
-
-    app2.controller("test", function($scope)
-    {
-
-    })
-})();
 

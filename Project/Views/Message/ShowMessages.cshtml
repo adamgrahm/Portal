@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Project.Models.ApplicationUser>
 
+@if (User.Identity.IsAuthenticated)
+{
+
+
 <div class="col-md-10">
     <h1 style="font-weight:bold;">Messages</h1>
     <hr />
@@ -33,3 +37,4 @@
         @Html.Partial("_PartialMessages")
     </div>
 </div>
+}
