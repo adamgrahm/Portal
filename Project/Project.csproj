@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -267,11 +268,16 @@
     <Compile Include="Migrations\201612080811113_AddedConversationModel.Designer.cs">
       <DependentUpon>201612080811113_AddedConversationModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612101236365_AddedGroups.cs" />
+    <Compile Include="Migrations\201612101236365_AddedGroups.Designer.cs">
+      <DependentUpon>201612101236365_AddedGroups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\Conversations.cs" />
     <Compile Include="Models\ForumReplies.cs" />
+    <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -1215,6 +1221,9 @@
     <Content Include="Views\Shared\_MessageForm.cshtml" />
     <Content Include="Views\Shared\_UserProfile.cshtml" />
     <Content Include="Views\Users\ShowUser.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\_PartialGroups.cshtml" />
+    <Content Include="Views\Group\_CreateGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1271,6 +1280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612080811113_AddedConversationModel.resx">
       <DependentUpon>201612080811113_AddedConversationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612101236365_AddedGroups.resx">
+      <DependentUpon>201612101236365_AddedGroups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

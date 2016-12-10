@@ -1,0 +1,14 @@
+﻿
+
+@using (Ajax.BeginForm("CreateGroup", "Group", new AjaxOptions
+{
+
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "GroupIndex"
+}))
+{
+    <input type="text" placeholder="Enter a groupname..." class="form-control" name="groupname" />
+    <input type="submit" value="Create" class="btn btn-success" />
+
+}
+

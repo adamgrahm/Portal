@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Project.Models.Groups>
+
+<div class="col-md-10">
+    <h1>GroupIndex</h1>
+    <hr style="border-color:black; background-color:black; color:black;" />
+    <div class="col-md-4">
+        <ul class="nav nav-stacked nav-pills">
+            <li>@Ajax.ActionLink("Index", "ReturnIndex", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "GroupIndex" })</li>
+            <li>@Ajax.ActionLink("Create Group", "ReturnGroupForm", "Group", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "GroupIndex" }) </li>
+            <li><a href="#"></a></li>
+        </ul>
+    </div>
+    <div id="GroupIndex" class="col-md-8">
+
+        @Html.Partial("_PartialGroups")
+
+    </div>
+</div>

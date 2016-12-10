@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 
 namespace Project.Models
 {
@@ -19,6 +20,8 @@ namespace Project.Models
         public DateTime Joined { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public List<Groups> Gruops { get; set; }
+
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -43,6 +46,8 @@ namespace Project.Models
         public DbSet<Message> Message { get; set; }
         public DbSet<ForumReplies> Replies { get; set; }
         public DbSet<Conversations> Conversations { get; set; }
+        public DbSet<Groups> Groups { get; set; }
+
 
 
 

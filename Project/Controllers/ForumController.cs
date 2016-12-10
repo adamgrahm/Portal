@@ -31,7 +31,8 @@ namespace Project.Controllers
             newThread.Headline = headline;
             var currentUser = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(r => r.Id == currentUser);
-            newThread.PostedBy = user.NickName;
+            newThread.OriginalPoster = user;
+            newThread.PostedBy = user.UserName;
             context.Thread.Add(newThread);
             context.SaveChanges();
             return PartialView("_PartialForum",context.Thread.ToList());
