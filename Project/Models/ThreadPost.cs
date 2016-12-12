@@ -13,7 +13,7 @@ namespace Project.Models
 
         [Required]
         [Display(Name = "Forumpost")]
-        [StringLength(5000, ErrorMessage = "Forumpost can not be more than 5000 letters", MinimumLength = 5)]
+        [StringLength(5000, ErrorMessage = "Forumpost can not be more than 5000 letters")]
         public string ForumPost { get; set; }
 
         [Required]

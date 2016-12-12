@@ -2,7 +2,7 @@
 
 <div class="col-md-8 col-md-offset-2">
     <h1>Latest filmreview</h1>
-    <hr style="background-color:black; border-color:black; color:black;" />
+    <hr />
     <br />
     @foreach (var item in Model)
     {
@@ -10,7 +10,7 @@
             <h2 id="@item.Id" class="col-md-9">@item.Headline</h2>
 
             <p>@item.Post</p>
-        <hr style="background-color:black; border-color:black; color:black;" class="col-md-12" />
+        <hr class="col-md-12" />
     }
     @if (User.Identity.IsAuthenticated)
     {

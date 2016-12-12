@@ -11,31 +11,39 @@ namespace Project.Controllers
     [Authorize]
     public class GroupController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        //ApplicationDbContext context = new ApplicationDbContext();
+        private ApplicationUser user;
+        private List<Groups> groups;
+        private Groups group;
         // GET: Group
         public ActionResult Index()
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            var groups = context.Groups.Where(x => x.Creator.Id == user.Id);
-            if (groups != null)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return View(groups);
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
+                if (groups != null)
+                {
+                    return View(groups);
+                }
+                return View();
             }
-            return View();
         }
 
         public ActionResult ReturnIndex()
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            var groups = context.Groups.Where(x => x.Creator.Id == user.Id);
-            if (groups != null)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return PartialView("_PartialGroups", groups);
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
+                if (groups != null)
+                {
+                    return PartialView("_PartialGroups", groups);
+                }
+                return PartialView("_PartialGroups");
             }
-            return PartialView("_PartialGroups");
-            
         }
 
         public ActionResult ReturnGroupForm()
@@ -45,23 +53,35 @@ namespace Project.Controllers
 
         public ActionResult CreateGroup(string groupname)
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            Groups group = new Groups();
-            group.Creator = user;
-            group.Groupname = groupname;
-            context.Groups.Add(group);
-            context.SaveChanges();
-            var groups = context.Groups.Where(x => x.Creator.Id == user.Id);
-            return PartialView("_PartialGroups", groups);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                Groups group = new Groups();
+                group.Creator = user;
+                group.Groupname = groupname;
+                
+                if (ModelState.IsValid)
+                {
+                    context.Groups.Add(group);
+                    context.SaveChanges();
+                }
+                
+                groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
+                return PartialView("_PartialGroups", groups);
+            }
         }
 
         public ActionResult DeleteGroup(string groupname)
         {
-            var findGroup = context.Groups.FirstOrDefault(x => x.Groupname == groupname);
-            context.Groups.Remove(findGroup);
-            var i = context.Groups.ToList();
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                group = context.Groups.FirstOrDefault(x => x.Groupname == groupname);
+                context.Groups.Remove(group);
+                context.SaveChanges();
+                groups = context.Groups.ToList();
+                return View(groups);
+            }
         }
     }
 }

@@ -1,23 +1,27 @@
 ﻿@model Project.Models.ApplicationUser
 
 
-    @if (Model != null)
-    {
-        <h1 style="font-weight:bold;">@Model.FirstName @Model.LastName</h1>
-        <hr style="border-color:black; color:black; background-color:black;" />
-        <div class="col-md-4">
-            <img src="@Model.ImageURL" style="max-width:250px; max-height:300px;" />
-        </div>
-        <ul style="list-style:none;" class="col-md-8">
+@if (Model != null)
+{
+    <h1 style="font-weight:bold;">@Model.FirstName @Model.LastName</h1>
+            <hr />
+<div class="col-md-4">
+    <img src="@Model.ImageURL" alt="profilbild" style="max-height:250px; max-width:200px;" />
+    
+</div>
+
+    <div class="col-md-8">
+        <ul style="list-style:none;">
 
             <li><label>Name: </label> @Model.FirstName</li>
             <li><label>Joined at: </label> @Model.Joined.ToString("yyyy-MM-dd")</li>
             <li><label>Lives in: </label><span> @Model.Country</span></li>
             <li><label>Born in:</label>: @Model.DateOfBirth.ToString("yyyy")</li>
             <li><label>Info:</label> @Model.Info</li>
-            <li><hr style="border-color:black; background-color:black; color:black;" /></li>
+            <li><hr /></li>
             <li>@Html.ActionLink("Write a message to " + Model.UserName, "Message", "Message", null, new { @class = "btn btn-success" })</li>
             <li><br /></li>
 
         </ul>
-    }
+    </div>
+}

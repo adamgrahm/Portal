@@ -13,107 +13,145 @@ namespace Project.Controllers
     [Authorize]
     public class ForumController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        
+        private Thread thread;
+        private List<Thread> threads;
+        private ThreadPost threadPost;
+        private List<ForumReplies> replies;
+        private int currentThread;
+        private ApplicationUser user;
         // GET: Forum
         public ActionResult Index()
         {
-            
-           
-            var threads = context.Thread.ToList();
-            return View(threads);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                threads = context.Thread.ToList();
+                return View(threads);
+            }
         }
 
         [HttpPost]
         public ActionResult Index(string headline)
         {
-            var newThread = new Thread();
-            newThread.DatePosted = DateTime.Now;
-            newThread.Headline = headline;
-            var currentUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(r => r.Id == currentUser);
-            newThread.OriginalPoster = user;
-            newThread.PostedBy = user.UserName;
-            context.Thread.Add(newThread);
-            context.SaveChanges();
-            return PartialView("_PartialForum",context.Thread.ToList());
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var newThread = new Thread();
+                newThread.DatePosted = DateTime.Now;
+                newThread.Headline = headline;
+                var currentUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(r => r.Id == currentUser);
+                newThread.OriginalPoster = user;
+                newThread.PostedBy = user.UserName;
+                
+                if (ModelState.IsValid)
+                {
+                    context.Thread.Add(newThread);
+                    context.SaveChanges();
+                }
+                
+                threads = context.Thread.ToList();
+                return PartialView("_PartialForum", threads);
+            }
         }
 
         public ActionResult SelectedPost(int id)
         {
-            var whichThread = context.Thread.Single(u => u.Id == id);
-            if (whichThread.Id == id)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                if (TempData["ErrorMessage"] != null)
+                thread = context.Thread.Single(u => u.Id == id);
+                if (thread.Id == id)
                 {
-                    ViewBag.ErrorMessage = TempData["ErrorMessage"].ToString();
+                    if (TempData["ErrorMessage"] != null)
+                    {
+                        ViewBag.ErrorMessage = TempData["ErrorMessage"].ToString();
+                    }
+                    return View(thread);
                 }
-                return View(whichThread);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult NewForumPost(string headline, string forumpost, int id)
         {
-            var newPost = new ThreadPost();
-            newPost.DatePosted = DateTime.Now;
-            newPost.ForumPost = forumpost;
-            var findThread = context.Thread.FirstOrDefault(u => u.Id == id);
-            newPost.Thread = findThread;
-            var currentUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
-            newPost.PostedBy = user.UserName;
-            
-            context.ThreadPost.Add(newPost);
-            context.SaveChanges();
-            return RedirectToRoute("Test", new { Id = id });
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var newPost = new ThreadPost();
+                newPost.DatePosted = DateTime.Now;
+                newPost.ForumPost = forumpost;
+                thread = context.Thread.FirstOrDefault(u => u.Id == id);
+                newPost.Thread = thread;
+                var currentUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(u => u.Id == currentUser);
+                newPost.PostedBy = user.UserName;
+                context.ThreadPost.Add(newPost);
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                            }
+                        }
+                    }
+
+                    
+                }
+                
+                return RedirectToRoute("Test", new { Id = id });
+            }
         }
 
         [HttpPost]
         public ActionResult ReplyToPost(string reply, int id)//<---ThreadpostId
         {
-            ForumReplies replies = new ForumReplies();
-            var test = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
-            var i = context.ThreadPost.FirstOrDefault(u => u.Id == id);
-            replies.Threadpost = i;
-            replies.Reply = reply;
-            replies.PostedDate = DateTime.Now;
-            var currentUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(u => u.Id == currentUser);
-            replies.PostedBy = user.UserName;
-            context.Replies.Add(replies);
-            try { 
-            context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                ForumReplies replies = new ForumReplies();
+                currentThread = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
+                threadPost = context.ThreadPost.FirstOrDefault(u => u.Id == id);
+                replies.Threadpost = threadPost;
+                replies.Reply = reply;
+                replies.PostedDate = DateTime.Now;
+                var currentUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(u => u.Id == currentUser);
+                replies.PostedBy = user.UserName;
+                
+                if (ModelState.IsValid)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation(
-                              "Class: {0}, Property: {1}, Error: {2}",
-                              validationErrors.Entry.Entity.GetType().FullName,
-                              validationError.PropertyName,
-                              validationError.ErrorMessage);
-                    }
+                    context.Replies.Add(replies);
+                    context.SaveChanges();
                 }
+                
+                return RedirectToRoute("Test", new { Id = currentThread });
             }
-            return RedirectToRoute("Test", new { Id = test });
         }
 
         public ActionResult ShowReplies(int id)
         {
-            var test = context.Replies.Where(u => u.Threadpost.Id == id);
-            return PartialView("_ShowReplies", test);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                replies = context.Replies.Where(u => u.Threadpost.Id == id).ToList();
+                return PartialView("_ShowReplies", replies);
+            }
         }
-
 
         [HttpPost]
         public ActionResult SearchForum(string searchstring)
         {
-            var i = context.Thread.Where(u => u.Headline.Contains(searchstring));
-            return PartialView("_PartialForum",i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                threads = context.Thread.Where(u => u.Headline.Contains(searchstring)).ToList(); ;
+            return PartialView("_PartialForum", threads);
+        }
         }
     }
 }

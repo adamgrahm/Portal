@@ -6,27 +6,27 @@
 
 <div class="col-md-10">
     <h2>Send a message</h2>
-    <hr style="border-color:black; background-color:black; color:black;" />
+    <hr />
     <div class="col-md-4">
             <ul class="nav nav-pills nav-stacked">
                 <li>@Ajax.ActionLink("Write a message", "ReturnForm", "Message", new AjaxOptions
                {
                    InsertionMode = InsertionMode.Replace,
-                   UpdateTargetId = "testar"
+                   UpdateTargetId = "MessageView"
                })</li>
                 @foreach (var item in Model)
                 {
                     <li>@Ajax.ActionLink(item.UserName, "PartialConversation", "Message", new { username = item.UserName }, new AjaxOptions
                    {
                        InsertionMode = InsertionMode.Replace,
-                       UpdateTargetId = "testar",
+                       UpdateTargetId = "MessageView",
                        HttpMethod = "Post"
                    })
                 </li>
                 }
             </ul>
     </div>
-    <div class="col-md-8" id="testar">
+    <div class="col-md-8" id="MessageView">
         @Html.Partial("_MessageForm")
     </div>
 </div>

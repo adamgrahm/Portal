@@ -10,112 +10,149 @@ namespace Project.Controllers
 {
     public class UsersController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        private List<ApplicationUser> getAllUsers;
+        private ApplicationUser user;
+        private int currentThread;
+
         // GET: Users
         public ActionResult Index()
         {
-            var users = context.Users.ToList();
-            return View(users);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                getAllUsers = context.Users.ToList();
+                return View(getAllUsers);
+            }
         }
 
 
         public ActionResult EditUser(string username)
         {
-            var i = context.Users.Single(u => u.UserName == username);
-            if (i.UserName == username)
+
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return PartialView("_EditUser", i);
+                user = context.Users.Single(u => u.UserName == username);
+                if (user.UserName == username)
+                {
+                    return PartialView("_EditUser", user);
+                }
+                return View();
             }
-            return View();
         }
 
-        //FUNKAR EJ!!!!!!!!!
         [HttpPost]
         public ActionResult EditUser(string username, string firstname, string lastname, string email,
             string country, string city, string image, string info)
         {
-            var i = context.Users.FirstOrDefault(u => u.UserName == username);
-            i.FirstName = firstname;
-            i.LastName = lastname;
-            i.Email = email;
-            i.Country = country;
-            i.City = city;
-            i.ImageURL = image;
-            i.Info = info;
-            context.SaveChanges();
-            return RedirectToAction("Index", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(u => u.UserName == username);
+                user.FirstName = firstname;
+                user.LastName = lastname;
+                user.Email = email;
+                user.Country = country;
+                user.City = city;
+                user.ImageURL = image;
+                user.Info = info;
+                if (ModelState.IsValid)
+                {
+                    context.SaveChanges();
+                }
+
+                return RedirectToAction("Index", user);
+            }
         }
 
-        public ActionResult DeleteUser(string username)
-        {
-            var i = context.Users.FirstOrDefault(u => u.UserName == username);
-            if (i.UserName == username)
-            {
-                context.Users.Remove(i);
-                context.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
+
 
         public ActionResult Search(string searchstring)
         {
-            var i = context.Users.Where(u => u.NickName.Contains(searchstring));
-            return PartialView("_PartialUsers", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                getAllUsers = context.Users.Where(u => u.NickName.Contains(searchstring)).ToList();
+                return PartialView("_PartialUsers", getAllUsers);
+            }
         }
 
-        public ActionResult FindUser (string username)
+        public ActionResult FindUser(string username)
         {
-            var i = context.Users.FirstOrDefault(u => u.UserName == username);
-            return PartialView("_DetailedUser", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(u => u.UserName == username);
+                return PartialView("_DetailedUser", user);
+            }
         }
 
         public ActionResult DirectToUser(string username, int id)
         {
-            var i = context.Users.FirstOrDefault(u => u.NickName == username);
-            if (i == null)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                var test = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
-                TempData["ErrorMessage"] = "User does not exist";
-                
-                return RedirectToRoute("Test", new { Id = test });                
+                user = context.Users.FirstOrDefault(u => u.NickName == username);
+                if (user == null)
+                {
+                    currentThread = context.ThreadPost.Where(u => u.Id == id).Select(y => y.Thread.Id).FirstOrDefault();
+                    TempData["ErrorMessage"] = "User does not exist";
+
+                    return RedirectToRoute("Test", new { Id = currentThread });
+                }
+                return View(user);
             }
-            return View(i);
         }
 
-        public ActionResult DirectFromReply (string username, int id)
+        public ActionResult DirectFromReply(string username, int id)
         {
-            var i = context.Users.FirstOrDefault(u => u.NickName == username);
-            var o = context.Replies.Where(x => x.Id == id).Select(t => t.Threadpost.Id).FirstOrDefault();
-            if (i == null)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                var test = context.ThreadPost.Where(u => u.Id == o).Select(y => y.Thread.Id).FirstOrDefault();
-                TempData["ErrorMessage"] = "User does not exist";
+                user = context.Users.FirstOrDefault(u => u.NickName == username);
+                currentThread = context.Replies.Where(x => x.Id == id).Select(t => t.Threadpost.Id).FirstOrDefault();
+                if (user == null)
+                {
+                    var test = context.ThreadPost.Where(u => u.Id == currentThread).Select(y => y.Thread.Id).FirstOrDefault();
+                    TempData["ErrorMessage"] = "User does not exist";
 
-                return RedirectToRoute("Test", new { Id = test });
+                    return RedirectToRoute("Test", new { Id = test });
+                }
+
+                return View("DirectToUser", user);
             }
-
-            return View("DirectToUser",i);
         }
 
         [Authorize]
         public ActionResult SearchForUser(string username)
         {
-            var i = context.Users.Where(x => x.UserName.Contains(username));
-            ViewBag.Message = username;
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                getAllUsers = context.Users.Where(x => x.UserName.Contains(username)).ToList();
+                ViewBag.Message = username;
+                return View(getAllUsers);
+            }
         }
 
         [Authorize]
         public ActionResult DirectSearch(string username)
         {
-            var i = context.Users.FirstOrDefault(x => x.UserName == username);
-            return View("DirectToUser", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+                return View("DirectToUser", user);
+            }
         }
 
         public ActionResult ShowUser()
         {
-            var i = context.Users.ToList();
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                getAllUsers = context.Users.ToList();
+                return View(getAllUsers);
+            }
+        }
+
+        public ActionResult SelectedUser(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var user = context.Users.FirstOrDefault(x => x.UserName == username);
+                return PartialView("_SelectedUser", user);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@if (Model != null)
 {
     <div style="align-content:center;">
-        <hr style="border-color:black; color:black; background-color:black;" />
+        <hr />
         <ul style="border:ridge; list-style:none;" class="col-md-6 col-md-offset-3">
             <li><h1 style="font-weight:bold;">@Model.UserName</h1></li>
             <li style="margin-top:5px;"><img src="@Model.ImageURL" style="height:100px;" /></li>
@@ -27,7 +27,7 @@
 
                    }, new { @class = "btn btn-sm btn-info" })
 
-                    @Html.ActionLink("Delete", "DeleteUser", "Users", routeValues: new
+                    @Html.ActionLink("Delete", "DeleteUser", "Account", routeValues: new
                    { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-danger", @style = "margin-left:3px;" })
 
                     @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new

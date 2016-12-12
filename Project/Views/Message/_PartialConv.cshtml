@@ -7,7 +7,7 @@
             @Ajax.ActionLink("Reply", "ReturnForm", "Message", new AjaxOptions
        {
            InsertionMode = InsertionMode.Replace,
-           UpdateTargetId = "testar"
+           UpdateTargetId = "MessageView"
        }, new { @class = "btn btn-sm btn-success" })
         </li>
 
@@ -31,10 +31,10 @@ else if (ViewBag.ErrorMessage != null)
         <br />
         <h2> Would you like to create one ?</h2>
            @Ajax.ActionLink("Create", "ReturnForm", "Message", new AjaxOptions
-           {
-               InsertionMode = InsertionMode.Replace,
-               UpdateTargetId = "testar"
-           }, new { @class = "btn btn-sm btn-success" })
+      {
+          InsertionMode = InsertionMode.Replace,
+          UpdateTargetId = "MessageView"
+      }, new { @class = "btn btn-sm btn-success" })
 
 }
 

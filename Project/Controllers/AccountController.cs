@@ -9,13 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Project.Models;
+using System.Collections.Generic;
 
 namespace Project.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        private ApplicationUser user;
+        private List<ApplicationUser> users;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -25,52 +27,68 @@ namespace Project.Controllers
 
         public ActionResult ChangeProfile()
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
 
-            return View(user);
+                return View(user);
+            }
+        }
+
+
+        //Funkar inte!!
+        public ActionResult DeleteUser(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = context.Users.FirstOrDefault(u => u.UserName == username);
+                if (currUser.UserName == username)
+                {
+                    context.Users.Remove(currUser);
+                    //UserManager.Delete(currUser);
+                    context.SaveChanges();
+                }
+                return RedirectToAction("Index","User");
+            }
         }
 
         [HttpPost]
         public ActionResult EditProfile(string username, string firstname, string lastname, string email,
             string country, string city, string image, string info)
         {
-            var i = context.Users.FirstOrDefault(x => x.UserName == username);
-            i.FirstName = firstname;
-            i.LastName = lastname;
-            i.Email = email;
-            i.Country = country;
-            i.City = city;
-            i.ImageURL = image;
-            i.Info = info;
-            context.SaveChanges();
-            return RedirectToAction("Index", "Manage", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+                user.FirstName = firstname;
+                user.LastName = lastname;
+                user.Email = email;
+                user.Country = country;
+                user.City = city;
+                user.ImageURL = image;
+                user.Info = info;
+                if (ModelState.IsValid)
+                {
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Manage", user);
+                }
+                return RedirectToAction("Index", "Manage");
+            }
         }
 
         public ActionResult MakeMod(string username)
         {
-            var i = context.Users.FirstOrDefault(u => u.UserName == username);
-            UserManager.AddToRole(i.Id, "Moderator");
-            context.SaveChanges();
-            return RedirectToAction("Index", "Users", context.Users.ToList());
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(u => u.UserName == username);
+                UserManager.AddToRole(user.Id, "Moderator");
+                context.SaveChanges();
+                users = context.Users.ToList();
+                return RedirectToAction("Index", "Users", users);
+            }
         }
-        //public async Task<ActionResult> SetUserToAdmin()
-        //{
-        //    if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
-        //    {
-        //        // Set admin rights ans update security stamp
-        //        UserManager.AddToRole(User.Identity.GetUserId(), "Admin");
-        //        await UserManager.UpdateSecurityStampAsync(User.Identity.GetUserId());
 
-        //        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-        //        // log out user, then log user in again to make the changes up to date
-        //        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-        //        await SignInManager.SignInAsync(user, true, false);
-        //    }
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -82,9 +100,9 @@ namespace Project.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -168,7 +186,7 @@ namespace Project.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -199,15 +217,25 @@ namespace Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.NickName, Email = model.Email,
-                    DateOfBirth = model.DateOfBirth, Info = model.Info, NickName = model.NickName, City = model.City,
-                    Country = model.Country, FirstName = model.FirstName, LastName = model.LastName,
-                    ImageURL = model.ImageURL, Joined = DateTime.Now };
+                var user = new ApplicationUser
+                {
+                    UserName = model.NickName,
+                    Email = model.Email,
+                    DateOfBirth = model.DateOfBirth,
+                    Info = model.Info,
+                    NickName = model.NickName,
+                    City = model.City,
+                    Country = model.Country,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    ImageURL = model.ImageURL,
+                    Joined = DateTime.Now
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

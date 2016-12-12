@@ -11,85 +11,115 @@ namespace Project.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        private ApplicationUser user;
+        private ApplicationUser secondUser;
+        private List<ApplicationUser> users;
+        private List<Message> messages;
         // GET: Message
         public ActionResult Index()
         {
-            var mess = context.Message.ToList();
-            return View(mess);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                messages = context.Message.ToList();
+                return View(messages);
+            }
         }
 
 
         [HttpPost]
         public ActionResult NewMessage(string username, string content)
         {
-            Message mess = new Message();
-            var i = context.Users.FirstOrDefault(x => x.UserName == username);
-            
-            mess.SentTo = i;
-            mess.ToUser = mess.SentTo.UserName;
-            //mess.Headline = headline;
-            mess.Content = content;
-            var currentUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(r => r.Id == currentUser);
-            mess.SentFrom = user;
-            mess.FromUser = user.UserName;
-            mess.Identifier = i.UserName + user.UserName;
-            mess.DateSent = DateTime.Now;
-            context.Message.Add(mess);
-            context.SaveChanges();
-            return PartialView("_PartialConv");
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                Message mess = new Message();
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+                mess.SentTo = user;
+                mess.ToUser = mess.SentTo.UserName;
+                //mess.Headline = headline;
+                mess.Content = content;
+                var currentUser = User.Identity.GetUserId();
+                secondUser = context.Users.FirstOrDefault(r => r.Id == currentUser);
+                mess.SentFrom = secondUser;
+                mess.FromUser = secondUser.UserName;
+                mess.Identifier = user.UserName + secondUser.UserName;
+                mess.DateSent = DateTime.Now;
+                if (ModelState.IsValid)
+                {
+                    context.Message.Add(mess);
+                    context.SaveChanges();
+                }
+                
+                return PartialView("_PartialConv");
+            }
         }
 
         public ActionResult ShowMessages()
         {
-            var i= context.Users.ToList();
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                users = context.Users.ToList();
+                return View(users);
+            }
         }
 
         public ActionResult ShowConversation(string username)
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            var i = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName);
-            if (i.Count() > 0)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return View(i);
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                messages = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName).ToList();
+                if (messages.Count() > 0)
+                {
+                    return View(messages);
+                }
+                ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
+                return View();
             }
-            ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
-            return View();
         }
 
         public ActionResult Search(string username)
         {
-            var i = context.Users.Where(x => x.UserName.Contains(username));
-            return PartialView("_PartialMessages", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                users = context.Users.Where(x => x.UserName.Contains(username)).ToList();
+                return PartialView("_PartialMessages", users);
+            }
         }
 
         public ActionResult Message()
         {
-            var i = context.Users.ToList();
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                users = context.Users.ToList();
+                return View(users);
+            }
         }
 
         [HttpPost]
         public ActionResult PartialConversation(string username)
         {
-            var currUser = User.Identity.GetUserId();
-            var user = context.Users.FirstOrDefault(x => x.Id == currUser);
-            var i = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName);
-            if (i.Count() > 0)
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return PartialView("_PartialConv", i);
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                messages = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName).ToList();
+                if (messages.Count() > 0)
+                {
+                    return PartialView("_PartialConv", messages);
+                }
+                ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
+                return PartialView("_PartialConv");
             }
-            ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
-            return PartialView("_PartialConv");
         }
 
         public ActionResult ReturnForm()
         {
-            var i = context.Users.ToList();
-            return PartialView("_MessageForm", i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                users = context.Users.ToList();
+                return PartialView("_MessageForm", users);
+            }
         }
     }
 }

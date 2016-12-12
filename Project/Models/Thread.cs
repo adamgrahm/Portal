@@ -13,7 +13,7 @@ namespace Project.Models
 
         [Required]
         [Display(Name = "Headline")]
-        [StringLength(100, ErrorMessage = "Headline can not be more than 100 letters", MinimumLength = 5)]
+        [StringLength(100, ErrorMessage = "Headline can not be more than 100 letters")]
         public string Headline { get; set; }
 
         public ApplicationUser OriginalPoster { get; set; }

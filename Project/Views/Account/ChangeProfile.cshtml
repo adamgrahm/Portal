@@ -60,36 +60,4 @@
             <input type="submit" class="btn btn-info" value="Submit" />
         </div>
     }
-
-        @*@using (Html.BeginForm("EditProfile", "Account", routeValues: new { username = Model.UserName }, method: FormMethod.Post, htmlAttributes: new { }))
-        {
-            <hr style="border-color:black; color:black; background-color:black;" />
-            <br />
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Info, new { @class = "col-md-3 control-label" })
-                <div class="col-md-9">
-                    @Html.TextBoxFor(m => m.Info, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Country, new { @class = "col-md-3 control-label" })
-                <div class="col-md-9">
-                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.City, new { @class = "col-md-3 control-label" })
-                <div class="col-md-9">
-                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "Write something about yourself...", @style = "max-height:50px;" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-info btn-lg" value="Save" />
-                </div>
-            </div>
-        }*@
-
-    </div>
+</div>

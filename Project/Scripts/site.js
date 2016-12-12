@@ -5,17 +5,17 @@
 //})();
 
 
-window.onscroll = function () { test() };
-    function test() {
+window.onscroll = function () { onScrollButton() };
+function onScrollButton() {
         if (document.body.scrollTop > 1200 && !$("#ToTheTop").length) {
-            $("#NavbarTest").append('<li><a href="#" onClick="test1()" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</span></a>');
+            $("#GlobalNavbar").append('<li><a href="#" onClick="scrollToTop()" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</span></a>');
         }
         else if (document.body.scrollTop < 1200) {
             $("#ToTheTop").remove();
         }
     }
 
-    function test1() {
+    function scrollToTop() {
         window.scrollTo(0,0)
 
     };

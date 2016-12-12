@@ -9,11 +9,16 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+
+       private List<Blog> blogs;
+                                           
         public ActionResult Index()
         {
-            var i = context.Blogposts.OrderByDescending(x => x.Id).Take(1);
-            return View(i);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                blogs = context.Blogposts.OrderByDescending(x => x.Id).Take(1).ToList();
+                return View(blogs);
+            }
         }
     }
 }
