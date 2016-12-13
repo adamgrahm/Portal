@@ -5,10 +5,7 @@
     var i = context.ThreadPost.Where(u => u.Thread.Id == Model.Id);
 
 }
-@if (User.Identity.IsAuthenticated)
-{
-
-    if (ViewBag.ErrorMessage != null)
+    @if (ViewBag.ErrorMessage != null)
     {
         <script>
             window.alert("Användaren finns inte längre")
@@ -39,9 +36,3 @@
 @Html.ActionLink("Back to the forum", "Index", null, new { @class = "btn btn-info" })
 
 </div>
-}
-else
-{
-<h2>You need to be logged in to acces the forum</h2>
-@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info" })
-}

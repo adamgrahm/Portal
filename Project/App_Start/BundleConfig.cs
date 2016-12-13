@@ -14,7 +14,8 @@ namespace Project
                         "~/Scripts/angular.js",
                         "~/Scripts/site.js",
                         "~/Scripts/jquery-ui-1.12.1.js",
-                        "~/Scripts/jquery.smooth.scroll-1.0.1.js"));
+                        "~/Scripts/jquery.smooth.scroll-1.0.1.js",
+                        "~/Scripts/validation.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate.js",
                         "~/Scripts/jquery.validate.unobtrusive.js"));

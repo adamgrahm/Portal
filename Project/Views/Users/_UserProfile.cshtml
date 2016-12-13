@@ -9,7 +9,10 @@
                 <img src="@Model.ImageURL" style="max-width:250px; max-height:300px;" />
             </div>
             <ul style="list-style:none;" class="col-md-8">
-
+                @if (Model.IsLockedOut)
+                {
+                    <li><h2 style="color:red;">This user is locked out!</h2></li>
+                }
                 <li><label>Name: </label> @Model.FirstName</li>
                 <li><label>Joined at: </label> @Model.Joined.ToString("yyyy-MM-dd")</li>
                 <li><label>Lives in: </label><span> @Model.Country</span></li>

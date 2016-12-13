@@ -8,13 +8,14 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
-    [Authorize]
+
     public class BlogController : Controller
     {
-        //ApplicationDbContext context = new ApplicationDbContext();
+        //Fields to populate and send back to the view
         private List<Blog> blogs;
         private string user;
-        // GET: Blog
+        
+        //Gets all blogposts from the database and send them to the view 
         public ActionResult Index()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
@@ -24,11 +25,8 @@ namespace Project.Controllers
             }
         }
 
-        public ActionResult NewBlogPost()
-        {
-            return View();
-        }
-
+        //Saves a new filmreview in the database, only for Admins
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult BlogPosted(string post, string headline, string pic)
         {
@@ -51,6 +49,7 @@ namespace Project.Controllers
             }
         }
 
+        //Ability to search for a specific filmreview
         public ActionResult Search(string moviename)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())

@@ -11,7 +11,8 @@ namespace Project.Controllers
     {
 
        private List<Blog> blogs;
-                                           
+        
+        //Startpage contains the latest filmreview                                   
         public ActionResult Index()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())

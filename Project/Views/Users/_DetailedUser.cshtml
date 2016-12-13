@@ -13,6 +13,13 @@
 
             <li><label>Date of birth</label>: @Model.DateOfBirth</li>
             <li><label>Info:</label> @Model.Info</li>
+            <li><br /></li>
+            @if (Model.IsLockedOut)
+            {
+                <li>
+                    <label style="color:red;">User is locked out! </label><p style="color:red; font-size:15px;"> @Model.LockoutEndDateUtc</p>
+                </li>
+            }
             <li style="margin-bottom:5px;">
                 @if (Model.NickName == "Admin" || Model.NickName == "Moderator")
                 {
@@ -25,13 +32,27 @@
                        InsertionMode = InsertionMode.Replace,
                        UpdateTargetId = "AdminPage",
 
-                   }, new { @class = "btn btn-sm btn-info" })
+                   }, new { @class = "btn btn-info" })
 
-                    @Html.ActionLink("Delete", "DeleteUser", "Account", routeValues: new
-                   { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-danger", @style = "margin-left:3px;" })
+                    if (Model.IsLockedOut)
+                    {
+                        @Html.ActionLink("Unlock", "UnLockAccount", "Account", new { username = Model.UserName }, new { @class = "btn btn-warning", @style = "margin-left:3px;" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Lockout", "Lockout", "Account", routeValues: new { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-danger", @style = "margin-left:3px;" })
 
-                    @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new
-                   { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-sm btn-success", @style = "margin-left:3px;" })
+                    }
+
+                    if (Model.InRole)
+                    {
+                        @Html.ActionLink("UnMod", "UnMod", "Account", routeValues: new { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-warning", @style = "margin-left:3px;" })
+                    }
+                    else if (!Model.InRole && !Model.IsLockedOut)
+                    {
+                        @Html.ActionLink("Mod", "MakeMod", "Account", routeValues: new { username = Model.UserName }, htmlAttributes: new { @class = "btn btn-success", @style = "margin-left:3px;" })
+                    }
+
                 }
             </li>
         </ul>

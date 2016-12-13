@@ -8,13 +8,13 @@
             <br />
             <h3>Search results for "@ViewBag.Message"</h3>
             <hr />
-            <ul class="nav nav-pills nav-stacked">
-                @foreach (var item in Model)
-                {
-                    <li>@Html.ActionLink(item.UserName + " || " + item.City +","+ item.Country, "DirectSearch", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</li>
-                    <li><br /></li>
-                }
-            </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach (var item in Model)
+                    {
+                        <li>@Html.ActionLink(item.UserName + " || " + item.City + "," + item.Country, "DirectSearch", "Users", routeValues: new { username = item.UserName }, htmlAttributes: new { })</li>
+                        <li><br /></li>
+                    }
+                </ul>
         }
         else
         {

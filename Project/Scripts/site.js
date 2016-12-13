@@ -1,16 +1,13 @@
 ﻿
 
-//(function () {
-//    $("#ToTheTop").hide();
-//})();
 
 
 window.onscroll = function () { onScrollButton() };
 function onScrollButton() {
-        if (document.body.scrollTop > 1200 && !$("#ToTheTop").length) {
-            $("#GlobalNavbar").append('<li><a href="#" onClick="scrollToTop()" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</span></a>');
+        if (document.body.scrollTop > 600 && !$("#ToTheTop").length) {
+            $("#GlobalNavbar").append('<li><a onClick="scrollToTop()" style="float:right;" type="button" class="btn btn-sm btn-info" id="ToTheTop">To the top!</a></li>');
         }
-        else if (document.body.scrollTop < 1200) {
+        else if (document.body.scrollTop < 600) {
             $("#ToTheTop").remove();
         }
     }

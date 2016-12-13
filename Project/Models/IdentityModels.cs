@@ -21,6 +21,10 @@ namespace Project.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<Groups> Gruops { get; set; }
+        public bool IsLockedOut { get; set; }
+        public bool InRole { get; set; }
+
+
 
 
 

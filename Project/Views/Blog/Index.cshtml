@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Project.Models.Blog>
-@if (User.Identity.IsAuthenticated)
-{
+
 
     <div class="col-md-10" style="padding-top:20px;" id="Top">
 
@@ -9,10 +8,44 @@
         <!--ONLY ADMINS-->
         @if (User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Create a new blogpost", "NewBlogPost", null, new { @class = "btn btn-info btn-lg" })
-            <hr style="background-color:black; border-color:black; color:black;" />
-        }
+          
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">New filmreview</button>
 
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title">Add a post</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="@Url.Action("BlogPosted", "Blog")" style="padding-top:50px;" class="form-group form-horizontal col-md-8">
+                            <div class="form-group" style="margin-bottom:50px;">
+                                <input type="text" class="form-control col-md-8" name="headline" placeholder="Enter a headline...." required />
+                            </div>
+                            <div class="form-group" style="margin-bottom:50px;">
+                                <input type="text" name="pic" class="form-control col-md-8" placeholder="Enter an imageURL..." required />
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Write a post..." class="form-control col-md-8" name="post" style="height:200px;" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-lg" value="Add Post" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        }
 
 
         <br />
@@ -50,4 +83,4 @@
         </div>
         <br>
     </div>
-}
+

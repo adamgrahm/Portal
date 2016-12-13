@@ -4,18 +4,14 @@
 @{
     ViewBag.Title = "Index";
     var i = Model;
-    
+
 }
-@if (User.Identity.IsAuthenticated)
-{
+<div>
+    <h1>Welcome to the forum</h1>
+    <hr />
+    <div class="col-xs-5">
 
-
-    <div>
-        <h1>Welcome to the forum</h1>
-        <hr />
-        <div class="col-xs-5">
-
-            @using (Ajax.BeginForm("SearchForum", "Forum", new AjaxOptions
+        @using (Ajax.BeginForm("SearchForum", "Forum", new AjaxOptions
             {
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "ForumSite",
@@ -23,15 +19,19 @@
             }))
             {
 
-                <div class="form-group">
-                    <input type="text" placeholder="Search for thread" class="form-control" name="searchstring" />
-                </div>
+            <div class="form-group">
+                <input type="text" placeholder="Search for thread" class="form-control" name="searchstring" />
+            </div>
                 <div class="form-group">
                     <input type="submit" value="Search" class="btn btn-success" />
                 </div>
 
-            }
-        </div>
+        }
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+
+
         <!--Posting to the forum-->
         <div class="col-xs-6 col-sm-offset-1">
             @using (Ajax.BeginForm("Index", "Forum", new AjaxOptions
@@ -54,15 +54,10 @@
 
 
             }
+            
         </div>
-
+    }
     </div>
     
     <!--Showing all the threads-->
-@Html.Partial("_PartialForum")
-}
-else
-{
-    <h2>You need to be logged in to acces the forum</h2>
-    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-info" })
-}
+        @Html.Partial("_PartialForum")

@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">First Name</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control" name="firstname" value="@Model.FirstName" placeholder="Enter your first name..." required />
+                <input type="text" class="form-control" id="firstname" name="firstname" value="@Model.FirstName" placeholder="Enter your first name..." required />
             </div>
         </div>
         <div class="form-group">
@@ -29,7 +29,7 @@
         <div class="form-group">
             <label class="col-xs-3">Email</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control" name="email" placeholder="Enter your email..." value="@Model.Email" required />
+                <input type="email" class="form-control" name="email" placeholder="Enter your email..." value="@Model.Email" required />
             </div>
         </div>
         <div class="form-group">
@@ -61,3 +61,7 @@
         </div>
     }
 </div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+    }

@@ -52,7 +52,7 @@ namespace Project.Controllers
         }
 
         //
-        // GET: /Manage/Index
+        // GET: /Manage/Index - Returns the user profile page
         public ActionResult Index()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())

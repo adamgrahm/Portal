@@ -12,6 +12,12 @@
 
             @foreach (var item in Model.OrderBy(x => x.UserName))
             {
+                if (item.UserName == "Admin" || item.UserName == "Moderator")
+                {
+
+                }
+                else
+                { 
                 <tr style="height:40px;">
                     <td>
                         @Ajax.ActionLink(item.UserName, "FindUser", "Users", new { username = item.UserName }, new AjaxOptions
@@ -25,6 +31,7 @@
                     
                     
                 </tr>
+                }
             }
         </table>
         <div id="AdminPage">

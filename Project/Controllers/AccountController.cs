@@ -16,8 +16,10 @@ namespace Project.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        //user and users fields that I can populate in actions and send back to the view
         private ApplicationUser user;
         private List<ApplicationUser> users;
+        //-------------------------------------------------
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -25,6 +27,7 @@ namespace Project.Controllers
         {
         }
 
+        //Sends back a view with input fields where users can change their profile
         public ActionResult ChangeProfile()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
@@ -36,23 +39,7 @@ namespace Project.Controllers
             }
         }
 
-
-        //Funkar inte!!
-        public ActionResult DeleteUser(string username)
-        {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                var currUser = context.Users.FirstOrDefault(u => u.UserName == username);
-                if (currUser.UserName == username)
-                {
-                    context.Users.Remove(currUser);
-                    //UserManager.Delete(currUser);
-                    context.SaveChanges();
-                }
-                return RedirectToAction("Index","User");
-            }
-        }
-
+        //Triggers on a buttonclick. Saves the users new inputs to the database
         [HttpPost]
         public ActionResult EditProfile(string username, string firstname, string lastname, string email,
             string country, string city, string image, string info)
@@ -76,12 +63,72 @@ namespace Project.Controllers
             }
         }
 
+        [Authorize(Roles ="Admin")]
+        //Action to lockout user for 200 years! Only available for admins!
+        public ActionResult Lockout(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+               
+                if (user != null)
+                {
+                    user.LockoutEnabled = true;
+                    user.IsLockedOut = true;
+                    user.LockoutEndDateUtc = DateTime.UtcNow.AddDays(365 * 200);
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Users", user);
+                }
+                return RedirectToAction("Index", "Users");
+            }
+                
+        }
+
+        //Action to unlock a locked user, only for Admins
+        [Authorize(Roles = "Admin")]
+        public ActionResult UnLockAccount(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+
+                if (user != null)
+                {
+                    user.LockoutEnabled = false;
+                    user.IsLockedOut = false;
+                    user.LockoutEndDateUtc = null;
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Users", user);
+                }
+                return RedirectToAction("Index", "Users");
+            }
+
+        }
+
+        //Add users to the moderator role. Only for admins!
+        [Authorize(Roles = "Admin")]
         public ActionResult MakeMod(string username)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 user = context.Users.FirstOrDefault(u => u.UserName == username);
                 UserManager.AddToRole(user.Id, "Moderator");
+                user.InRole = true;
+                context.SaveChanges();
+                users = context.Users.ToList();
+                return RedirectToAction("Index", "Users", users);
+            }
+        }
+
+        //Remove user from the moderator role. Only for Admins
+        [Authorize(Roles = "Admin")]
+        public ActionResult UnMod(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.UserName == username);
+                UserManager.RemoveFromRole(user.Id, "Moderator");
+                user.InRole = false;
                 context.SaveChanges();
                 users = context.Users.ToList();
                 return RedirectToAction("Index", "Users", users);

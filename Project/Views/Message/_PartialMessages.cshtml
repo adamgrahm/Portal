@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<Project.Models.ApplicationUser>
 
 
+@if (User.Identity.IsAuthenticated)
+{
+
 
 <div id="messageSite">
     @foreach (var item in Model)
@@ -10,4 +13,4 @@
                 <hr />
     }
 </div>
-
+}
