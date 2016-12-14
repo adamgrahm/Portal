@@ -6,23 +6,20 @@
 }
 @if (Model != null)
 {
-    <div class="col-md-10">
 
-        <div class="col-md-3">
-
-            <ul class="nav nav-pills nav-stacked" style="border-right:ridge;" id="BlogsAside">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Users</h1>
+            <hr />
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                  </li>
                 @foreach (var item in Model)
                 {
                     <li>
-                        @Ajax.ActionLink(item.UserName, "SelectedUser", "Users", new { username = item.UserName }, new AjaxOptions
-                   { InsertionMode = InsertionMode.Replace, UpdateTargetId = "UserProfile" })
-                </li>
+                        @Html.ActionLink(item.UserName, "DirectSearch", "Users", new { username = item.UserName}, new { })
+                    </li>
                 }
             </ul>
         </div>
-        <div class="col-md-9" id="UserProfile">
-
-        </div>
-    </div>
 }
 

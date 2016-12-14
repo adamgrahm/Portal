@@ -18,11 +18,15 @@ namespace Project.Controllers
         //-------------------------------------
 
         // Returns all the groups that the logged in user are currently in, only for logged in users
-        [Authorize]
+        
         public ActionResult Index()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
+                if (User.Identity.IsAuthenticated)
+                {
+
+               
                 var currUser = User.Identity.GetUserId();
                 user = context.Users.FirstOrDefault(x => x.Id == currUser);
                 //Find the groups where the user is in
@@ -32,6 +36,12 @@ namespace Project.Controllers
                     return View(groups);
                 }
                 return View();
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "You need to be logged in to access groups";
+                    return View();
+                }
             }
         }
 

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Project.Models.Message>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <h2>@ViewBag.ErrorMessage</h2>
+}
+
+@if (Model != null)
+{
+    <ul style="list-style:none;">
+        @foreach (var item in Model.Reverse())
+        {
+            <li><h2>From: @item.FromUser</h2></li>
+            <li><p style="font-style:italic">Date: @item.DateSent</p></li>
+            <li><p>@item.Content</p></li>
+        }
+    </ul>
+
+}

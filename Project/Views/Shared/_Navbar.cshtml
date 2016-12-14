@@ -1,8 +1,4 @@
-﻿
-<div class="container-fluid" style="background-size:cover; background-color:#FFF;color:#000;height:100px;" id="header">
-    <img src="~/Images/beige-full-hd-background_1_1920x1200.jpg" class="stretch" />
-</div>
-<div class="navbar" data-spy="affix" data-offset-top="97" style="background-color:black;">
+﻿<div class="navbar navbar-fixed-top" data-spy="affix" data-offset-top="97" style="background-color:black;">
     <div>
         <div class="navbar-header">
             @*@Html.ActionLink(" ", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "navbar-brand", @id = "logo" })*@
@@ -20,7 +16,6 @@
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("Filmreviews", "Index", "Blog")</li>
                 <li>@Html.ActionLink("Forum", "Index", "Forum")</li>
-                <li>@Html.ActionLink("Message", "Message", "Message")</li>
                 <li>@Html.ActionLink("Groups", "Index", "Group")</li>
                 <li>@Html.ActionLink("Users", "ShowUser", "Users")</li>
             </ul>

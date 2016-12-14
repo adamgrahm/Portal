@@ -1,0 +1,16 @@
+﻿@*<form action="~/Users/SearchForUser" method="post" class="form-inline hidden-xs" style="margin-top:8px; margin-right:5px;">
+        <div class="form-group">
+            <input type="text" placeholder="Search for a user..." name="username" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="Search" />
+        </div>
+    </form>*@
+
+
+@foreach (var item in Model)
+{
+    <ul style="list-style:none;">
+        <li>@Ajax.ActionLink((string)item.UserName, "ModalSmallUser", "Users", new { username = item.UserName }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "modalbody" })</li>
+    </ul>
+}

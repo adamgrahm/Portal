@@ -10,13 +10,14 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
-   
+
     public class ForumController : Controller
     {
         //Fields to be populated in actions and pushed to the view
         private Thread thread;
         private List<Thread> threads;
         private ThreadPost threadPost;
+        private List<ThreadPost> threadPosts;
         private List<ForumReplies> replies;
         private int currentThread;
         private ApplicationUser user;
@@ -46,13 +47,13 @@ namespace Project.Controllers
                 user = context.Users.FirstOrDefault(r => r.Id == currentUser);
                 newThread.OriginalPoster = user;
                 newThread.PostedBy = user.UserName;
-                
+
                 if (ModelState.IsValid)
                 {
                     context.Thread.Add(newThread);
                     context.SaveChanges();
                 }
-                
+
                 threads = context.Thread.ToList();
                 return PartialView("_PartialForum", threads);
             }
@@ -113,9 +114,9 @@ namespace Project.Controllers
                         }
                     }
 
-                    
+
                 }
-                
+
                 return RedirectToRoute("Test", new { Id = id }); // This route is to make sure a user stays on the same page after posting
             }
         }
@@ -137,13 +138,13 @@ namespace Project.Controllers
                 var currentUser = User.Identity.GetUserId();
                 user = context.Users.FirstOrDefault(u => u.Id == currentUser);
                 replies.PostedBy = user.UserName;
-                
+
                 if (ModelState.IsValid)
                 {
                     context.Replies.Add(replies);
                     context.SaveChanges();
                 }
-                
+
                 return RedirectToRoute("Test", new { Id = currentThread }); //Route to make sure user stays on the same page after posting
             }
         }
@@ -165,8 +166,17 @@ namespace Project.Controllers
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 threads = context.Thread.Where(u => u.Headline.Contains(searchstring)).ToList(); ;
-            return PartialView("_PartialForum", threads);
+                return PartialView("_PartialForum", threads);
+            }
         }
+
+        public ActionResult ChoosenThread(int id)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                threadPosts = context.ThreadPost.Where(u => u.Thread.Id == id).ToList();
+                return PartialView("_ChoosenThread", threadPosts);
+            }
         }
     }
 }

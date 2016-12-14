@@ -2,16 +2,15 @@
 
 <h1 style="font-weight:bold;">Change your profile</h1>
 <hr />
-<div class="col-md-4">
-    <ul class="nav nav-pills nav-stacked" style="overflow:hidden;">
+<div>
+    <ul class="nav nav-pills list-inline">
         <li><a href="~/Manage/Index">Start</a></li>
         <li class="active" style="font-size:30px;"><a href="~/Account/ChangeProfile">Change profile</a></li>
         <li><a href="~/Manage/ChangePassword">Change Password</a></li>
-        <li><a href="~/Message/ShowMessages">Messages</a></li>
     </ul>
 </div>
-<div class="col-md-8">
-
+<div>
+    <hr />
     @using (Html.BeginForm("EditProfile", "Account", routeValues: new { username = Model.UserName }, method: FormMethod.Post, htmlAttributes: new { }))
     {
         <div class="form-group">

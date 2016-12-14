@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Microsoft.AspNet.Identity;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -99,7 +100,7 @@ namespace Project.Controllers
                 }
 
                 return PartialView("_DetailedUser", user);
-                
+
             }
         }
 
@@ -175,12 +176,15 @@ namespace Project.Controllers
             if (User.Identity.IsAuthenticated)
             {
 
-           
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                getAllUsers = context.Users.ToList();
-                return View(getAllUsers);
-            }
+
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    var currUser = User.Identity.GetUserId();
+                    user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                    getAllUsers = context.Users.ToList();
+                    getAllUsers.Remove(user);
+                    return View(getAllUsers);
+                }
             }
             else
             {
@@ -198,6 +202,36 @@ namespace Project.Controllers
             {
                 var user = context.Users.FirstOrDefault(x => x.UserName == username);
                 return PartialView("_SelectedUser", user);
+            }
+        }
+
+        public ActionResult ModalSearch(string searchstring)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                getAllUsers = context.Users.Where(x => x.UserName.Contains(searchstring)).ToList();
+                return PartialView("_SearchResult", getAllUsers);
+            }
+        }
+
+        //Only for logged in users
+        [Authorize]
+        public ActionResult ModalSmallUser(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var user = context.Users.FirstOrDefault(x => x.UserName == username);
+                return PartialView("_SmallProfile", user);
+            }
+        }
+
+        public ActionResult ProfilePage()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                return View("DirectToUser", user);
             }
         }
     }

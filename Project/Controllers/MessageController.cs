@@ -91,6 +91,22 @@ namespace Project.Controllers
             }
         }
 
+        public ActionResult PartialConvForUser(string username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                messages = context.Message.Where(x => x.Identifier == user.UserName + username || x.Identifier == username + user.UserName).ToList();
+                if (messages.Count() > 0)
+                {
+                    return PartialView("_PartialConvForUser", messages);
+                }
+                ViewBag.ErrorMessage = "A conversation beetween you and " + username + " does not exist!";
+                return PartialView("_PartialConvForUser");
+            }
+        }
+
         //Logged in user can search for a specific user to see their conversation
         //Only for logged in users
         [Authorize]

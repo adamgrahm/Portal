@@ -1171,18 +1171,18 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\NotUsed\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\NotUsed\ConfirmEmail.cshtml" />
+    <Content Include="Views\NotUsed\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\NotUsed\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\NotUsed\ForgotPassword.cshtml" />
+    <Content Include="Views\NotUsed\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\NotUsed\ResetPassword.cshtml" />
+    <Content Include="Views\NotUsed\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\NotUsed\SendCode.cshtml" />
+    <Content Include="Views\NotUsed\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -1223,6 +1223,9 @@
     <Content Include="Views\Group\_PartialGroups.cshtml" />
     <Content Include="Views\Group\_CreateGroup.cshtml" />
     <Content Include="Views\Users\_SelectedUser.cshtml" />
+    <Content Include="Views\Shared\_SearchResult.cshtml" />
+    <Content Include="Views\Users\_SmallProfile.cshtml" />
+    <Content Include="Views\Shared\_PartialConvForUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

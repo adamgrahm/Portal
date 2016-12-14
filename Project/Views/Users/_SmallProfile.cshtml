@@ -1,0 +1,11 @@
+﻿
+
+@if (Model != null)
+{
+    <img src="@Model.ImageURL" alt="profilbild" style="max-height:50px; max-width:75px; float:left;" />
+    <ul style="list-style:none;" class="col-md-3">
+        <li>@Model.UserName</li>
+        <li>@Model.Country</li>
+        <li>@Html.ActionLink("Go to profile", "DirectSearch", "Users", new { username = Model.UserName }, new { @class = "btn btn-link" })</li>
+    </ul>
+}
