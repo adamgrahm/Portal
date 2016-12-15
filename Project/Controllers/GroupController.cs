@@ -23,25 +23,25 @@ namespace Project.Controllers
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                if (User.Identity.IsAuthenticated)
-                {
-
-               
-                var currUser = User.Identity.GetUserId();
-                user = context.Users.FirstOrDefault(x => x.Id == currUser);
-                //Find the groups where the user is in
-                groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
-                if (groups != null)
-                {
-                    return View(groups);
-                }
-                return View();
-                }
-                else
-                {
-                    ViewBag.ErrorMessage = "You need to be logged in to access groups";
-                    return View();
-                }
+                groups = context.Groups.ToList();
+                return View(groups);
+                //if (User.Identity.IsAuthenticated)
+                //{
+                //var currUser = User.Identity.GetUserId();
+                //user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                ////Find the groups where the user is in
+                //groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
+                //if (groups != null)
+                //{
+                //    return View(groups);
+                //}
+                //return View();
+                //}
+                //else
+                //{
+                //    ViewBag.ErrorMessage = "You need to be logged in to access groups";
+                //    return View();
+                //}
             }
         }
 
@@ -81,18 +81,23 @@ namespace Project.Controllers
             {
                 var currUser = User.Identity.GetUserId();
                 user = context.Users.FirstOrDefault(x => x.Id == currUser);
-                Groups group = new Groups();
-                group.Creator = user;
-                group.Groupname = groupname;
+                Groups newGroup = new Groups();
+                newGroup.Creator = user;
+                newGroup.Groupname = groupname;
+                if (newGroup.UsersInGroups == null)
+                {
+                    newGroup.UsersInGroups = new List<ApplicationUser>();
+                }
+                newGroup.UsersInGroups.Add(user);
                 
                 if (ModelState.IsValid)
                 {
-                    context.Groups.Add(group);
+                    context.Groups.Add(newGroup);
                     context.SaveChanges();
                 }
                 
                 groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
-                return PartialView("_PartialGroups", groups);
+                return RedirectToAction("Index");
             }
         }
 
@@ -109,5 +114,30 @@ namespace Project.Controllers
                 return View(groups);
             }
         }
+
+        public ActionResult JoinGroup(string groupname)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var currUser = User.Identity.GetUserId();
+                user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                group = context.Groups.FirstOrDefault(x => x.Groupname == groupname);
+                if (group.UsersInGroups == null)
+                {
+                    group.UsersInGroups = new List<ApplicationUser>();
+                }
+                group.UsersInGroups.Add(user);
+                context.SaveChanges();
+                return PartialView("_CreateGroup");
+            }
+        }
+        //public ActionResult SelectedGroup(string groupname)
+        //{
+        //    using (ApplicationDbContext context = new ApplicationDbContext())
+        //    {
+        //        group = context.Groups.FirstOrDefault(x => x.Groupname == groupname);
+        //        return View(group);
+        //    }
+        //}
     }
 }

@@ -7,11 +7,21 @@
 
     foreach (var item in Model)
     {
-        <h2>@item.Groupname</h2>
+        <p>@item.Groupname</p>
+
+        if (item.UsersInGroups != null)
+        {
+            foreach (var user in item.UsersInGroups)
+            {
+                <p>@user.FirstName</p>
+            }
+        }
+
+        @Html.ActionLink("Join", "JoinGroup", "Group", new { groupname = item.Groupname }, new { @class = "btn btn-link" })
     }
-}
-else
-{
+        }
+        else
+        {
 
 <h2>You are not a member of any group</h2>
 }
