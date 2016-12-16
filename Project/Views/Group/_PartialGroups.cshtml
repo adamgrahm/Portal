@@ -17,7 +17,8 @@
             }
         }
 
-        @Html.ActionLink("Join", "JoinGroup", "Group", new { groupname = item.Groupname }, new { @class = "btn btn-link" })
+        @Ajax.ActionLink("Join", "JoinGroup", "Group", new { groupname = item.Groupname }, new AjaxOptions {
+        InsertionMode = InsertionMode.Replace, UpdateTargetId = "GroupIndex"} , new { @class = "btn btn-link" })
     }
         }
         else

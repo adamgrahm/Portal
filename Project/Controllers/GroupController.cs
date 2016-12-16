@@ -13,35 +13,27 @@ namespace Project.Controllers
     {
         //Fields that can be populated and sent back to the view
         private ApplicationUser user;
+        private List<string> names;
         private List<Groups> groups;
         private Groups group;
         //-------------------------------------
 
-        // Returns all the groups that the logged in user are currently in, only for logged in users
+        // Returns all the groups, only for logged in users
         
         public ActionResult Index()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                groups = context.Groups.ToList();
+                if (User.Identity.IsAuthenticated)
+                { 
+                    groups = context.Groups.ToList();
                 return View(groups);
-                //if (User.Identity.IsAuthenticated)
-                //{
-                //var currUser = User.Identity.GetUserId();
-                //user = context.Users.FirstOrDefault(x => x.Id == currUser);
-                ////Find the groups where the user is in
-                //groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
-                //if (groups != null)
-                //{
-                //    return View(groups);
-                //}
-                //return View();
-                //}
-                //else
-                //{
-                //    ViewBag.ErrorMessage = "You need to be logged in to access groups";
-                //    return View();
-                //}
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "You need to be logged in to access groups";
+                    return View();
+                }
             }
         }
 
@@ -52,14 +44,36 @@ namespace Project.Controllers
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                var currUser = User.Identity.GetUserId();
-                user = context.Users.FirstOrDefault(x => x.Id == currUser);
-                groups = context.Groups.Where(x => x.Creator.Id == user.Id).ToList();
+                groups = context.Groups.ToList();
                 if (groups != null)
                 {
                     return PartialView("_PartialGroups", groups);
                 }
                 return PartialView("_PartialGroups");
+            }
+        }
+
+        public ActionResult YourGroups()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    var currUser = User.Identity.GetUserId();
+                    user = context.Users.FirstOrDefault(x => x.Id == currUser);
+                    //Find the groups where the user is in
+                    names = context.Groups.Where(x => x.UsersInGroups.Contains(user)).Select(x => x.Groupname).ToList();
+                    if (groups != null)
+                    {
+                        return PartialView("_YourGroups", names);
+                    }
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "You are not a member of any groups!";
+                    return PartialView("_YourGroups");
+                }
             }
         }
 
@@ -79,6 +93,12 @@ namespace Project.Controllers
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
+                var unique = context.Groups.FirstOrDefault(x => x.Groupname == groupname);
+                if (unique != null)
+                {
+                    ViewBag.ErrorMessage = "A group with that name already exists";
+                    return PartialView("_CreateGroup");
+                }
                 var currUser = User.Identity.GetUserId();
                 user = context.Users.FirstOrDefault(x => x.Id == currUser);
                 Groups newGroup = new Groups();
@@ -128,7 +148,7 @@ namespace Project.Controllers
                 }
                 group.UsersInGroups.Add(user);
                 context.SaveChanges();
-                return PartialView("_CreateGroup");
+                return PartialView("_YourGroups");
             }
         }
         //public ActionResult SelectedGroup(string groupname)

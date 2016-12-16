@@ -6,7 +6,6 @@
     var chat = $.connection.chat;
     $.connection.hub.logging = true;
     $.connection.hub.start();
-
     chat.client.newMessage = function (message) {
         model.addMessage(message);
     };

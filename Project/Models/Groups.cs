@@ -8,6 +8,10 @@ namespace Project.Models
 {
     public class Groups
     {
+        public Groups()
+        {
+            this.UsersInGroups = new HashSet<ApplicationUser>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -18,7 +22,7 @@ namespace Project.Models
         [Required]
         public ApplicationUser Creator { get; set; }
 
-        public List<ApplicationUser> UsersInGroups { get; set; }
+        public virtual ICollection<ApplicationUser> UsersInGroups { get; set; }
 
 
 

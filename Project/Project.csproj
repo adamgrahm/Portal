@@ -286,6 +286,14 @@
     <Compile Include="Migrations\201612151355488_test.Designer.cs">
       <DependentUpon>201612151355488_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612160955579_ChangedListsToCollection.cs" />
+    <Compile Include="Migrations\201612160955579_ChangedListsToCollection.Designer.cs">
+      <DependentUpon>201612160955579_ChangedListsToCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612161004090_ChangedToCollectionAgain.cs" />
+    <Compile Include="Migrations\201612161004090_ChangedToCollectionAgain.Designer.cs">
+      <DependentUpon>201612161004090_ChangedToCollectionAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -1246,6 +1254,7 @@
     <Content Include="Views\Users\_SmallProfile.cshtml" />
     <Content Include="Views\Shared\_PartialConvForUser.cshtml" />
     <Content Include="Views\LiveChat\Index.cshtml" />
+    <Content Include="Views\Group\_YourGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1308,6 +1317,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612151355488_test.resx">
       <DependentUpon>201612151355488_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612160955579_ChangedListsToCollection.resx">
+      <DependentUpon>201612160955579_ChangedListsToCollection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612161004090_ChangedToCollectionAgain.resx">
+      <DependentUpon>201612161004090_ChangedToCollectionAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

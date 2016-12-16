@@ -178,5 +178,28 @@ namespace Project.Controllers
                 return PartialView("_ChoosenThread", threadPosts);
             }
         }
+
+        [Authorize(Roles = "Admin,Moderator")]
+        public ActionResult DeleteThread(int threadId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                thread = context.Thread.FirstOrDefault(x => x.Id == threadId);
+                var posts = context.ThreadPost.Where(x => x.Thread.Id == thread.Id).ToList();
+                
+                foreach (var post in posts)
+                {
+                    var replies = context.Replies.Where(x => x.Threadpost.Id == post.Id).ToList();
+                    if (replies != null)
+                    {
+                        context.Replies.RemoveRange(replies);
+                    }
+                }
+                context.ThreadPost.RemoveRange(posts);
+                context.Thread.Remove(thread);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

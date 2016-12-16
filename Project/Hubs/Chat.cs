@@ -12,10 +12,10 @@ namespace Project.Hubs
     {
         public void Send(string message)
         {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                Clients.All.newMessage(message);
-            }
+                var test = Context.User.Identity.Name;
+                Clients.All.newMessage(
+                    test + ": " +
+                    message);
         }
     }
 }

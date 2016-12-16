@@ -1,5 +1,10 @@
 ﻿
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <h2>@ViewBag.ErrorMessage</h2>
+}
+
 @using (Ajax.BeginForm("CreateGroup", "Group", new AjaxOptions
 {
 
