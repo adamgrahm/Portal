@@ -13,9 +13,8 @@ namespace Project.Hubs
         public void Send(string message)
         {
                 var test = Context.User.Identity.Name;
-                Clients.All.newMessage(
-                    test + ": " +
-                    message);
+            Clients.All.newMessage(
+                    test + ": " + message);
         }
     }
 }
